@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lightcontrol/lamp.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +13,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Lamp lamp = new Lamp();
+
   String _statePower = 'images/power-off.jpeg';
   void _changeStatePower() {
     setState(() {
@@ -21,7 +24,8 @@ class _MyAppState extends State<MyApp> {
         _statePower = 'images/power-off.jpeg';
       }
       ;
-      print(_statePower);
+      lamp.switchOnOff();
+      lamp.infos();
     });
   }
 
@@ -34,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.blue.shade200,
+          backgroundColor: Colors.blue.shade400,
           elevation: 1,
           centerTitle: true,
           title: InkWell(
@@ -46,8 +50,51 @@ class _MyAppState extends State<MyApp> {
               height: 60,
             ),
           ),
-        ), // toute la page
+        ),
+        body: const MyHomePage(), // toute la page
       ),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

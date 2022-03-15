@@ -62,6 +62,8 @@ flutter:
   assets:
     - images/power-off.jpeg
     - images/power-on.jpeg
+    - images/power-on.png
+    - images/power-off.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
