@@ -36,22 +36,26 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter light control',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        body: const MyHomePage(),
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.blue.shade400,
-          elevation: 1,
-          centerTitle: true,
-          title: InkWell(
-            onTap: () {
-              _changeStatePower();
-            },
-            child: Image.asset(
-              '$_statePower',
-              height: 60,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(100.0), // here the desired height
+          child: AppBar(
+            toolbarHeight: 120.0,
+            backgroundColor: Colors.blue.shade400,
+            elevation: 1,
+            centerTitle: true,
+            title: InkWell(
+              onTap: () {
+                _changeStatePower();
+              },
+              child: Image.asset(
+                '$_statePower',
+                height: 120,
+              ),
             ),
           ),
-        ),
-        body: const MyHomePage(), // toute la page
+        ), // toute la page
       ),
     );
   }
