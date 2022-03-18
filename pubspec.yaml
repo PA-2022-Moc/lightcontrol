@@ -62,6 +62,22 @@ flutter:
   assets:
     - images/power-off.jpeg
     - images/power-on.jpeg
+    - images/test-color.jpeg
+    - images/test-color-s.jpeg
+    - blue-clear-s.jpeg
+    - blue-clear.jpeg
+    - deep-blue-s.jpeg
+    - deep-blue.jpeg
+    - green-s.jpeg
+    - green.jpeg
+    - orange-s.jpeg
+    - orange.jpeg
+    - purple-s.jpeg
+    - purple.jpeg
+    - red-s.jpeg
+    - red.jpeg
+    - yellow-s.jpeg
+    - yellow.jpeg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

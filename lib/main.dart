@@ -81,15 +81,50 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            Image.asset(
+              'images/red.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Image.asset(
+              'images/orange.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
+            ),
+            Image.asset(
+              'images/yellow.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
+            ),
+            Image.asset(
+              'images/green.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
+            ),
+            Image.asset(
+              'images/blue-clear.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
+            ),
+            Image.asset(
+              'images/deep-blue.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
+            ),
+            Image.asset(
+              'images/purple.jpeg',
+              height: 40,
+              width: 60,
+              fit: BoxFit.fitWidth,
             ),
           ],
         ),
