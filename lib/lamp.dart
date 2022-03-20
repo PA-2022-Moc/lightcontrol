@@ -39,6 +39,14 @@ class Lamp {
     }
   }
 
+  bool checkIfOnOff() {
+    if (start == false) {
+      return false;
+    } else {
+      return true ;
+    }
+  }
+
   void switchAuto() {
     if (auto == false) {
       auto = true;
