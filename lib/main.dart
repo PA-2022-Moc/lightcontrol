@@ -84,6 +84,44 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+  //State<MyHomePage> createState() => _TestHome();
+}
+
+class _TestHome extends State<MyHomePage> {
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+     backgroundColor: Colors.white,
+     body: Column (
+        children: <Widget>[
+          Expanded (
+            child: Container (
+              child : Row( // faire les boutons a ce niveau 
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Spacer(flex: 1),
+                  Expanded(
+                    child: ElevatedButton(
+                      child: Text(""),
+                      style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                      onPressed: () {}
+                    ),
+                  ),
+                ]
+              ),
+            ),
+            flex: 2,
+          ),
+          Expanded (
+            child: Container (
+            color: Colors.amber,
+            ),
+          ),
+        ],
+      ),  
+    );
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -95,75 +133,75 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.red);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.orange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.orange);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.yellow, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.yellow);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.green);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.lightBlue);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.indigo.shade900);
-                }),
-          ),
-          Spacer(flex: 1),
-          Expanded(
-            child: ElevatedButton(
-                child: Text(""),
-                style: ElevatedButton.styleFrom(primary: Colors.purple, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                onPressed: () {
-                  myAppState.selectColor(Colors.purple);
-                }),
-          ),
-          Spacer(flex: 1),
-        ],
-      )),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.red);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.orange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.orange);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.yellow, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.yellow);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.green);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.lightBlue);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.indigo.shade900);
+                  }),
+            ),
+            Spacer(flex: 1),
+            Expanded(
+              child: ElevatedButton(
+                  child: Text(""),
+                  style: ElevatedButton.styleFrom(primary: Colors.purple, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                  onPressed: () {
+                    myAppState.selectColor(Colors.purple);
+                  }),
+            ),
+            Spacer(flex: 1),
+          ],
+        ),
+      ),
     );
   }
 }
