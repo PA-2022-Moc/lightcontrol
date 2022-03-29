@@ -43,24 +43,26 @@ class Lamp {
     if (start == false) {
       return false;
     } else {
-      return true ;
+      return true;
     }
   }
 
-  void switchAuto() {
-    if (auto == false) {
-      auto = true;
-    } else {
-      auto = false;
-    }
+  void switchAuto(bool switchMode) {
+    // if (auto == false) {
+    //   auto = true;
+    // } else {
+    //   auto = false;
+    // }
+    auto = switchMode;
   }
 
-  void switchMusic() {
-    if (music == false) {
-      music = true;
-    } else {
-      music = false;
-    }
+  void switchMusic(bool switchMode) {
+    // if (music == false) {
+    //   music = true;
+    // } else {
+    //   music = false;
+    // }
+    music = switchMode;
   }
 
   void changeBrightness(int cursor) {
