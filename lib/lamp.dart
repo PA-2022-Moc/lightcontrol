@@ -31,6 +31,40 @@ class Lamp {
     print("|||||||||||||||||||||||| \n");
   }
 
+  String displayInfosLamp() {
+    String line3;
+    String line4;
+    String line5;
+
+    String line1 = "      LAMPE INFOS \n";
+    String line2 = "||||||||||||||||||||||||";
+    if (start == false) {
+      line3 = "| Eteint               |\n";
+    } else {
+      line3 = "| Allumé               |\n";
+    }
+
+    if (auto == false) {
+      line4 = "| Mode auto désactivé  |\n";
+    } else {
+      line4 = "| Mode auto activé     |\n";
+    }
+
+    if (music == false) {
+      line5 = "| Mode music désactivé |\n";
+    } else {
+      line5 = "| Mode music activé    |\n";
+    }
+
+    String line6 = "| brightness à $brightness      |\n";
+    String line7 = "| color à $color       |\n";
+    String line8 = "|||||||||||||||||||||||| \n";
+
+    List<String> concatLines = [line1, line2, line3, line4, line5, line6, line7, line8];
+    String concatLine = concatLines.join();
+    return concatLine;
+  }
+
   void switchOnOff() {
     if (start == false) {
       start = true;

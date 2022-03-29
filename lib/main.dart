@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
       ;
       lamp.switchOnOff();
       lamp.infos();
+      lamp.displayInfosLamp();
     });
   }
 
@@ -60,6 +61,10 @@ class _MyAppState extends State<MyApp> {
   void changeBrightnessWithSlider(int curserValue) {
     lamp.changeBrightness(curserValue);
     lamp.infos();
+  }
+
+  String displayLampInfos() {
+    return lamp.displayInfosLamp();
   }
 
   @override
@@ -110,6 +115,8 @@ class _TestHome extends State<MyHomePage> {
   var isSwitched2 = false;
   double valueCursor = 50.0;
 
+  String infoLamp = 'test';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,18 +125,13 @@ class _TestHome extends State<MyHomePage> {
         children: <Widget>[
           FractionallySizedBox(
             alignment: Alignment.topCenter,
-            widthFactor: 1,
+            widthFactor: 0.8,
             child: Container(
               color: Colors.grey,
               height: 300,
+              child: Text('$infoLamp'),
             ),
           ),
-          // Expanded(
-          //   child: Container(
-          //     color: Colors.green,
-          //   ),
-          // ),
-
           Expanded(
             // les color buttons
             child: Container(
@@ -148,6 +150,7 @@ class _TestHome extends State<MyHomePage> {
                         style: ElevatedButton.styleFrom(primary: Colors.red, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.red);
+                          infoLamp = myAppState.displayLampInfos();
                         }),
                   ),
                   Spacer(flex: 1),
@@ -229,25 +232,42 @@ class _TestHome extends State<MyHomePage> {
             flex: 1,
           ),
           Expanded(
+            // les switch button
             child: Container(
               color: Colors.white,
-              child: SfSlider(
-                activeColor: Colors.blue.shade100,
-                inactiveColor: Colors.grey.shade100,
-                min: 0,
-                max: 100,
-                value: valueCursor,
-                interval: 100,
-                showTicks: false,
-                showLabels: true,
-                enableTooltip: true,
-                onChanged: (dynamic value) {
-                  setState(() {
-                    valueCursor = value;
-                    int valueInt = valueCursor.toInt();
-                    myAppState.changeBrightnessWithSlider(valueInt);
-                  });
-                },
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 10.0),
+                          Text("🔅                                    Brightness                                   🔆"),
+                          SizedBox(height: 1.0),
+                          SfSlider(
+                            activeColor: Colors.yellow.shade600,
+                            inactiveColor: Colors.yellow.shade200,
+                            min: 0,
+                            max: 100,
+                            value: valueCursor,
+                            interval: 100,
+                            showTicks: false,
+                            showLabels: true,
+                            enableTooltip: true,
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                valueCursor = value;
+                                int valueInt = valueCursor.toInt();
+                                myAppState.changeBrightnessWithSlider(valueInt);
+                                infoLamp = myAppState.displayLampInfos();
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -263,7 +283,7 @@ class _TestHome extends State<MyHomePage> {
                         children: <Widget>[
                           SizedBox(height: 10.0),
                           Text("Auto Brightness"),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 17.0),
                           FlutterSwitch(
                             activeText: "  💡",
                             inactiveText: "Off",
@@ -281,6 +301,7 @@ class _TestHome extends State<MyHomePage> {
                               setState(() {
                                 isSwitched = val;
                                 myAppState.switchBrightnessMode(isSwitched);
+                                infoLamp = myAppState.displayLampInfos();
                               });
                             },
                           ),
@@ -294,7 +315,7 @@ class _TestHome extends State<MyHomePage> {
                         children: <Widget>[
                           SizedBox(height: 10.0),
                           Text("Music Mod"),
-                          SizedBox(height: 5.0),
+                          SizedBox(height: 17.0),
                           FlutterSwitch(
                             activeText: "  🎵",
                             inactiveText: "Off",
@@ -311,7 +332,8 @@ class _TestHome extends State<MyHomePage> {
                             onToggle: (val) {
                               setState(() {
                                 isSwitched2 = val;
-                                myAppState.switchBrightnessMode(isSwitched2);
+                                myAppState.switchMusicMode(isSwitched2);
+                                infoLamp = myAppState.displayLampInfos();
                               });
                             },
                           ),
