@@ -57,6 +57,11 @@ class _MyAppState extends State<MyApp> {
     lamp.infos();
   }
 
+  void changeBrightnessWithSlider(int curserValue) {
+    lamp.changeBrightness(curserValue);
+    lamp.infos();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -103,7 +108,7 @@ class _TestHome extends State<MyHomePage> {
   final myAppState = _MyAppState();
   var isSwitched = false;
   var isSwitched2 = false;
-  double _value = 50.0;
+  double valueCursor = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -111,36 +116,26 @@ class _TestHome extends State<MyHomePage> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Expanded(
+          FractionallySizedBox(
+            alignment: Alignment.topCenter,
+            widthFactor: 1,
             child: Container(
-              color: Colors.green,
+              color: Colors.grey,
+              height: 300,
             ),
           ),
-          Expanded(
-            child: Container(
-              color: Colors.white,
-              child: SfSlider(
-                activeColor: Colors.blue.shade100,
-                inactiveColor: Colors.grey.shade100,
-                min: 0,
-                max: 100,
-                value: _value,
-                interval: 100,
-                showTicks: false,
-                showLabels: true,
-                enableTooltip: true,
-                onChanged: (dynamic value) {
-                  setState(() {
-                    _value = value;
-                  });
-                },
-              ),
-            ),
-          ),
+          // Expanded(
+          //   child: Container(
+          //     color: Colors.green,
+          //   ),
+          // ),
+
           Expanded(
             // les color buttons
             child: Container(
               color: Colors.white,
+              height: 10.0,
+              width: 414,
               padding: const EdgeInsets.all(20),
               child: Row(
                 // faire les boutons a ce niveau
@@ -150,7 +145,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.red, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.red);
                         }),
@@ -159,7 +154,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.orange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.orange, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.orange);
                         }),
@@ -168,7 +163,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.yellow, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.yellow, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.yellow);
                         }),
@@ -177,7 +172,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.white, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.white);
                         }),
@@ -186,7 +181,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.green, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.green);
                         }),
@@ -195,7 +190,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.lightBlue, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.lightBlue);
                         }),
@@ -204,7 +199,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.indigo.shade900);
                         }),
@@ -213,7 +208,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.purple, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.purple, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.purple);
                         }),
@@ -222,7 +217,7 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.pink.shade400, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(primary: Colors.pink.shade400, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.pink.shade400);
                         }),
@@ -234,6 +229,29 @@ class _TestHome extends State<MyHomePage> {
             flex: 1,
           ),
           Expanded(
+            child: Container(
+              color: Colors.white,
+              child: SfSlider(
+                activeColor: Colors.blue.shade100,
+                inactiveColor: Colors.grey.shade100,
+                min: 0,
+                max: 100,
+                value: valueCursor,
+                interval: 100,
+                showTicks: false,
+                showLabels: true,
+                enableTooltip: true,
+                onChanged: (dynamic value) {
+                  setState(() {
+                    valueCursor = value;
+                    int valueInt = valueCursor.toInt();
+                    myAppState.changeBrightnessWithSlider(valueInt);
+                  });
+                },
+              ),
+            ),
+          ),
+          Expanded(
             // les switch button
             child: Container(
               color: Colors.white,
@@ -242,7 +260,6 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: Container(
                       child: Column(
-                        //color: Colors.green,
                         children: <Widget>[
                           SizedBox(height: 10.0),
                           Text("Auto Brightness"),
@@ -312,12 +329,12 @@ class _TestHome extends State<MyHomePage> {
                 Container(
                   height: 200.0,
                   width: 207.0,
-                  color: Colors.blue,
+                  color: Colors.white,
                 ),
                 Container(
                   height: 200.0,
                   width: 207.0,
-                  color: Colors.orange,
+                  color: Colors.white,
                 ),
               ]),
             ),
