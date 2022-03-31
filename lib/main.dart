@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static Lamp lamp = new Lamp();
+  String infoLamp = lamp.displayInfosLamp();
 
   var colorHex = {Colors.red: 'FF0000', Colors.orange: 'FFC000', Colors.yellow: 'FFFF00', Colors.white: 'FFFFFF', Colors.green: '00B050', Colors.lightBlue: '00B0F0', Colors.indigo.shade900: '002060', Colors.purple: '7030A0', Colors.pink.shade400: 'FD6C9E'};
 
@@ -111,11 +112,15 @@ class MyHomePage extends StatefulWidget {
 
 class _TestHome extends State<MyHomePage> {
   final myAppState = _MyAppState();
-  var isSwitched = false;
-  var isSwitched2 = false;
-  double valueCursor = 50.0;
+  bool isSwitched = false;
+  bool isSwitched2 = false;
+  double valueCursor = 50.0; // 50,0
 
   String infoLamp = 'LOADING INFOS';
+
+  // const String(
+  //  myAppState.displayLampInfos();
+  // )
 
   @override
   Widget build(BuildContext context) {
