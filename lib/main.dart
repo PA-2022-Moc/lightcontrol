@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       }
       ;
       lamp.switchOnOff();
-      lamp.infos();
+      //lamp.infos();
       lamp.displayInfosLamp();
     });
   }
@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> {
             title: InkWell(
               onTap: () {
                 changeStatePower();
+                displayLampInfos();
               },
               child: Image.asset(
                 '$_statePower',
@@ -115,9 +116,11 @@ class _TestHome extends State<MyHomePage> {
   bool isSwitched = false;
   bool isSwitched2 = false;
   double valueCursor = 50.0; // 50,0
+  String infoLamp = _MyAppState().displayLampInfos(); //'LOADING INFOS';
 
-  String infoLamp = 'LOADING INFOS';
-
+  _TestHome() {
+    infoLamp = myAppState.displayLampInfos();
+  }
   // const String(
   //  myAppState.displayLampInfos();
   // )
