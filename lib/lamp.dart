@@ -35,11 +35,11 @@ class Lamp {
     String line3;
     String line4;
     String line5;
+    String concatLine;
 
     String line1 = "LAMPE INFOS \n";
     String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
     if (start == false) {
-      return "allumer d'abord la lumière";
       line3 = "  Eteint                             \n";
     } else {
       line3 = "  Allumé                                    \n";
@@ -59,11 +59,18 @@ class Lamp {
 
     String line6 = "  brightness à $brightness         \n";
     String line7 = "  color à $color                            \n";
-    String line8 = "||||||||||||||||||||||||||||||||||||||||||||\n";
 
-    List<String> concatLines = [line1, line2, line3, line4, line5, line6, line7, line8];
-    String concatLine = concatLines.join();
-    infos();
+    List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
+    List<String> concatLines = [line1, line2, line3, line4, line5, line6, line7, line2];
+
+    if (start == false) {
+      concatLine = concatLinesWhenIsOff.join();
+      print(concatLines);
+    } else {
+      concatLine = concatLines.join();
+      print(concatLines);
+    }
+    //print("qdqdqzdqdqdz");
     return concatLine;
   }
 

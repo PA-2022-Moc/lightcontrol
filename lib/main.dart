@@ -19,7 +19,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static Lamp lamp = new Lamp();
-  String infoLamp = lamp.displayInfosLamp();
+  String line1 = "LAMPE INFOS \n";
+  String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
+  String line3 = "  Eteint                             \n";
+  //String concatLinesWhenIsOff = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n";
+
+  String infoLamp = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n" + "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
+  //lamp.infos(); //"ALLUMER LA LAMPE";
 
   var colorHex = {Colors.red: 'FF0000', Colors.orange: 'FFC000', Colors.yellow: 'FFFF00', Colors.white: 'FFFFFF', Colors.green: '00B050', Colors.lightBlue: '00B0F0', Colors.indigo.shade900: '002060', Colors.purple: '7030A0', Colors.pink.shade400: 'FD6C9E'};
 
@@ -34,8 +40,8 @@ class _MyAppState extends State<MyApp> {
       }
       ;
       lamp.switchOnOff();
+      //infoLamp = lamp.displayInfosLamp();
       //lamp.infos();
-      lamp.displayInfosLamp();
     });
   }
 
@@ -46,6 +52,7 @@ class _MyAppState extends State<MyApp> {
       String colorSelected = colorHex[color]!;
       lamp.changeColor(colorSelected);
     }
+    //lamp.infos();
   }
 
   void switchBrightnessMode(bool switchMode) {
@@ -83,7 +90,6 @@ class _MyAppState extends State<MyApp> {
             title: InkWell(
               onTap: () {
                 changeStatePower();
-                displayLampInfos();
               },
               child: Image.asset(
                 '$_statePower',
@@ -112,11 +118,11 @@ class _TestHome extends State<MyHomePage> {
   bool isSwitched = false;
   bool isSwitched2 = false;
   double valueCursor = 50.0; // 50,0
-  String infoLamp = _MyAppState().displayLampInfos(); //'LOADING INFOS';
+  String infoLamp = _MyAppState().infoLamp; //'LOADING INFOS';
 
-  _TestHome() {
-    infoLamp = myAppState.displayLampInfos();
-  }
+  // _TestHome() {
+  //   infoLamp = myAppState.displayLampInfos();
+  // }
   // const String(
   //  myAppState.displayLampInfos();
   // )
@@ -136,7 +142,7 @@ class _TestHome extends State<MyHomePage> {
               margin: const EdgeInsets.only(top: 50.0),
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                '$infoLamp',
+                infoLamp,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -164,7 +170,6 @@ class _TestHome extends State<MyHomePage> {
                         style: ElevatedButton.styleFrom(primary: Colors.red, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
                           myAppState.selectColor(Colors.red);
-                          infoLamp = myAppState.displayLampInfos();
                           setState(() {
                             infoLamp = myAppState.displayLampInfos();
                           });
