@@ -45,23 +45,19 @@ class _MyAppState extends State<MyApp> {
     } else {
       String colorSelected = colorHex[color]!;
       lamp.changeColor(colorSelected);
-      lamp.infos();
     }
   }
 
   void switchBrightnessMode(bool switchMode) {
     lamp.switchAuto(switchMode);
-    lamp.infos();
   }
 
   void switchMusicMode(bool switchMode) {
     lamp.switchMusic(switchMode);
-    lamp.infos();
   }
 
   void changeBrightnessWithSlider(int curserValue) {
     lamp.changeBrightness(curserValue);
-    lamp.infos();
   }
 
   String displayLampInfos() {
