@@ -24,10 +24,23 @@ class _MyAppState extends State<MyApp> {
   String line3 = "  Eteint                             \n";
   //String concatLinesWhenIsOff = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n";
 
-  String infoLamp = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n" + "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
+  String infoLamp = "LAMPE INFOS \n" +
+      "||||||||||||||||||||||||||||||||||||||||||||\n" +
+      "  Eteint                             \n" +
+      "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
   //lamp.infos(); //"ALLUMER LA LAMPE";
 
-  var colorHex = {Colors.red: 'FF0000', Colors.orange: 'FFC000', Colors.yellow: 'FFFF00', Colors.white: 'FFFFFF', Colors.green: '00B050', Colors.lightBlue: '00B0F0', Colors.indigo.shade900: '002060', Colors.purple: '7030A0', Colors.pink.shade400: 'FD6C9E'};
+  var colorHex = {
+    Colors.red: 'FF0000',
+    Colors.orange: 'FFC000',
+    Colors.yellow: 'FFFF00',
+    Colors.white: 'FFFFFF',
+    Colors.green: '00B050',
+    Colors.lightBlue: '00B0F0',
+    Colors.indigo.shade900: '002060',
+    Colors.purple: '7030A0',
+    Colors.pink.shade400: 'FD6C9E'
+  };
 
   String _statePower = 'images/power-off.jpeg';
 
@@ -38,9 +51,9 @@ class _MyAppState extends State<MyApp> {
       } else {
         _statePower = 'images/power-off.jpeg';
       }
-      ;
-      lamp.switchOnOff();
-      //infoLamp = lamp.displayInfosLamp();
+        lamp.switchOnOff();
+        infoLamp = lamp.displayInfosLamp();
+
       //lamp.infos();
     });
   }
@@ -78,7 +91,14 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter light control',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: const MyHomePage(),
+        body: MyHomePage(
+          infoLamp: infoLamp,
+          displayLampInfos: displayLampInfos,
+          selectColor: selectColor,
+          changeBrightnessWithSlider: changeBrightnessWithSlider,
+          switchBrightnessMode: switchBrightnessMode,
+          switchMusicMode: switchMusicMode,
+        ),
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0), // here the desired height
@@ -92,7 +112,7 @@ class _MyAppState extends State<MyApp> {
                 changeStatePower();
               },
               child: Image.asset(
-                '$_statePower',
+                _statePower,
                 height: 120,
               ),
             ),
@@ -104,34 +124,36 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  //Static MyAppState myAppState = new MyAppState();
+  String infoLamp;
+  final Function displayLampInfos;
+  final Function selectColor;
+  final Function changeBrightnessWithSlider;
+  final Function switchMusicMode;
+  final Function switchBrightnessMode;
+  MyHomePage(
+      {Key? key,
+      required this.infoLamp,
+      required this.displayLampInfos,
+      required this.selectColor,
+      required this.changeBrightnessWithSlider,
+      required this.switchMusicMode,
+      required this.switchBrightnessMode})
+      : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _TestHome();
-  //State<MyAppState> createState() => _MyAppState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _TestHome extends State<MyHomePage> {
-  final myAppState = _MyAppState();
+class _MyHomePageState extends State<MyHomePage> {
   bool isSwitched = false;
   bool isSwitched2 = false;
   double valueCursor = 50.0; // 50,0
-  String infoLamp = _MyAppState().infoLamp; //'LOADING INFOS';
-
-  // _TestHome() {
-  //   infoLamp = myAppState.displayLampInfos();
-  // }
-  // const String(
-  //  myAppState.displayLampInfos();
-  // )
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
+    return Container(
+      //backgroundColor: Colors.white,
+      child: Column(
         children: <Widget>[
           FractionallySizedBox(
             alignment: Alignment.topCenter,
@@ -142,7 +164,7 @@ class _TestHome extends State<MyHomePage> {
               margin: const EdgeInsets.only(top: 50.0),
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                infoLamp,
+                widget.infoLamp,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -167,11 +189,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.red, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.red,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.red);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.red);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -179,11 +205,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.orange, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.orange,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.orange);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.orange);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -191,11 +221,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.yellow, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.yellow,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.yellow);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.yellow);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -203,11 +237,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.white, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.white);
+                          widget.selectColor(Colors.white);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -215,11 +253,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.green, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.green);
+                          widget.selectColor(Colors.green);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -227,11 +269,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.lightBlue, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.lightBlue,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.lightBlue);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.lightBlue);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -239,11 +285,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.indigo.shade900,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.indigo.shade900);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.indigo.shade900);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -251,11 +301,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.purple, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.purple,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.purple);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.purple);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -263,11 +317,15 @@ class _TestHome extends State<MyHomePage> {
                   Expanded(
                     child: ElevatedButton(
                         child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.pink.shade400, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.pink.shade400,
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(90))),
                         onPressed: () {
-                          myAppState.selectColor(Colors.pink.shade400);
                           setState(() {
-                            infoLamp = myAppState.displayLampInfos();
+                            widget.selectColor(Colors.pink.shade400);
+                            widget.infoLamp = widget.displayLampInfos();
                           });
                         }),
                   ),
@@ -288,7 +346,8 @@ class _TestHome extends State<MyHomePage> {
                       child: Column(
                         children: <Widget>[
                           SizedBox(height: 10.0),
-                          Text("🔅                                    Brightness                                   🔆"),
+                          Text(
+                              "🔅                                    Brightness                                   🔆"),
                           SizedBox(height: 1.0),
                           SfSlider(
                             activeColor: Colors.yellow.shade600,
@@ -304,8 +363,8 @@ class _TestHome extends State<MyHomePage> {
                               setState(() {
                                 valueCursor = value;
                                 int valueInt = valueCursor.toInt();
-                                myAppState.changeBrightnessWithSlider(valueInt);
-                                infoLamp = myAppState.displayLampInfos();
+                                widget.changeBrightnessWithSlider(valueInt);
+                                widget.infoLamp = widget.displayLampInfos();
                               });
                             },
                           ),
@@ -346,8 +405,8 @@ class _TestHome extends State<MyHomePage> {
                             onToggle: (val) {
                               setState(() {
                                 isSwitched = val;
-                                myAppState.switchBrightnessMode(isSwitched);
-                                infoLamp = myAppState.displayLampInfos();
+                                widget.switchBrightnessMode(isSwitched);
+                                widget.infoLamp = widget.displayLampInfos();
                               });
                             },
                           ),
@@ -378,8 +437,8 @@ class _TestHome extends State<MyHomePage> {
                             onToggle: (val) {
                               setState(() {
                                 isSwitched2 = val;
-                                myAppState.switchMusicMode(isSwitched2);
-                                infoLamp = myAppState.displayLampInfos();
+                                widget.switchMusicMode(isSwitched2);
+                                widget.infoLamp = widget.displayLampInfos();
                               });
                             },
                           ),
@@ -413,85 +472,85 @@ class _TestHome extends State<MyHomePage> {
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final myAppState = _MyAppState();
+// class _MyHomePageState extends State<MyHomePage> {
+//   final myAppState = _MyAppState();
 
-  List<bool> _selections = List.generate(7, (_) => false);
+//   List<bool> _selections = List.generate(7, (_) => false);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.red);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.orange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.orange);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.yellow, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.yellow);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.green);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.lightBlue);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.indigo.shade900);
-                  }),
-            ),
-            Spacer(flex: 1),
-            Expanded(
-              child: ElevatedButton(
-                  child: Text(""),
-                  style: ElevatedButton.styleFrom(primary: Colors.purple, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                  onPressed: () {
-                    myAppState.selectColor(Colors.purple);
-                  }),
-            ),
-            Spacer(flex: 1),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.red, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.red);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.orange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.orange);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.yellow, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.yellow);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.green);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.lightBlue, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.lightBlue);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.indigo.shade900);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//             Expanded(
+//               child: ElevatedButton(
+//                   child: Text(""),
+//                   style: ElevatedButton.styleFrom(primary: Colors.purple, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
+//                   onPressed: () {
+//                     myAppState.selectColor(Colors.purple);
+//                   }),
+//             ),
+//             Spacer(flex: 1),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
