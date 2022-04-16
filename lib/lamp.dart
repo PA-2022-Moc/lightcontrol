@@ -31,6 +31,49 @@ class Lamp {
     print("|||||||||||||||||||||||| \n");
   }
 
+  String displayInfosLamp() {
+    String line3;
+    String line4;
+    String line5;
+    String concatLine;
+
+    String line1 = "LAMPE INFOS \n";
+    String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
+    if (start == false) {
+      line3 = "  Eteint                             \n";
+    } else {
+      line3 = "  Allumé                                    \n";
+    }
+
+    if (auto == false) {
+      line4 = "  Mode auto désactivé    \n";
+    } else {
+      line4 = "  Mode auto activé          \n";
+    }
+
+    if (music == false) {
+      line5 = "  Mode music désactivé  \n";
+    } else {
+      line5 = "  Mode music activé        \n";
+    }
+
+    String line6 = "  brightness à $brightness         \n";
+    String line7 = "  color à $color                            \n";
+
+    List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
+    List<String> concatLines = [line1, line2, line3, line4, line5, line6, line7, line2];
+
+    if (start == false) {
+      concatLine = concatLinesWhenIsOff.join();
+      print(concatLines);
+    } else {
+      concatLine = concatLines.join();
+      print(concatLines);
+    }
+    //print("qdqdqzdqdqdz");
+    return concatLine;
+  }
+
   void switchOnOff() {
     if (start == false) {
       start = true;
@@ -39,20 +82,30 @@ class Lamp {
     }
   }
 
-  void switchAuto() {
-    if (auto == false) {
-      auto = true;
+  bool checkIfOnOff() {
+    if (start == false) {
+      return false;
     } else {
-      auto = false;
+      return true;
     }
   }
 
-  void switchMusic() {
-    if (music == false) {
-      music = true;
-    } else {
-      music = false;
-    }
+  void switchAuto(bool switchMode) {
+    // if (auto == false) {
+    //   auto = true;
+    // } else {
+    //   auto = false;
+    // }
+    auto = switchMode;
+  }
+
+  void switchMusic(bool switchMode) {
+    // if (music == false) {
+    //   music = true;
+    // } else {
+    //   music = false;
+    // }
+    music = switchMode;
   }
 
   void changeBrightness(int cursor) {
