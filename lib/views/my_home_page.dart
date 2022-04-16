@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lightcontrol/components/brightness_cursor.dart';
 import 'package:lightcontrol/components/color_palette.dart';
+import 'package:lightcontrol/components/switch_button.dart';
 import 'package:lightcontrol/lamp.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class MyHomePage extends StatefulWidget {
   String infoLamp;
@@ -58,6 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
       valueCursor = value;
       int valueInt = valueCursor.toInt();
       changeBrightnessWithSlider(valueInt);
+      widget.infoLamp = displayLampInfos();
+    });
+  }
+
+  void setSwitch(bool val) {
+    setState(() {
+      isSwitched = val;
+      switchBrightnessMode(isSwitched);
+      widget.infoLamp = displayLampInfos();
+    });
+  }
+
+  void setSwitch2(bool val) {
+    setState(() {
+      isSwitched2 = val;
+      switchMusicMode(isSwitched2);
       widget.infoLamp = displayLampInfos();
     });
   }
@@ -123,77 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 1,
           ),
           BrightnessCursor(valueCursor: valueCursor, setBrightness: setBrightness),
+          //  "  🎵" les switch button
+
           Expanded(
-            // les switch button
             child: Container(
               color: Colors.white,
               child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10.0),
-                          Text("Auto Brightness"),
-                          SizedBox(height: 17.0),
-                          FlutterSwitch(
-                            activeText: "  💡",
-                            inactiveText: "Off",
-                            width: 125.0,
-                            height: 55.0,
-                            valueFontSize: 25.0,
-                            toggleSize: 45.0,
-                            value: isSwitched,
-                            borderRadius: 30.0,
-                            padding: 8.0,
-                            activeColor: Colors.blue.shade100,
-                            inactiveColor: Colors.grey.shade400,
-                            showOnOff: true,
-                            onToggle: (val) {
-                              setState(() {
-                                isSwitched = val;
-                                switchBrightnessMode(isSwitched);
-                                widget.infoLamp = displayLampInfos();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10.0),
-                          Text("Music Mod"),
-                          SizedBox(height: 17.0),
-                          FlutterSwitch(
-                            activeText: "  🎵",
-                            inactiveText: "Off",
-                            width: 125.0,
-                            height: 55.0,
-                            valueFontSize: 25.0,
-                            toggleSize: 45.0,
-                            value: isSwitched2,
-                            borderRadius: 30.0,
-                            padding: 8.0,
-                            activeColor: Colors.blue.shade100,
-                            inactiveColor: Colors.grey.shade400,
-                            showOnOff: true,
-                            onToggle: (val) {
-                              setState(() {
-                                isSwitched2 = val;
-                                switchMusicMode(isSwitched2);
-                                widget.infoLamp = displayLampInfos();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                children: <Widget>[SwitchButton(activeText: "  💡", isSwitched: isSwitched, setSwitch: setSwitch), SwitchButton(activeText: "  🎵", isSwitched: isSwitched2, setSwitch: setSwitch2)],
               ),
             ),
           ),
