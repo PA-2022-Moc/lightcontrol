@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:lightcontrol/components/brightness_cursor.dart';
+import 'package:lightcontrol/components/color_palette.dart';
 import 'package:lightcontrol/lamp.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -44,6 +46,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return widget.lamp.displayInfosLamp();
   }
 
+  void setColor(Color color) {
+    setState(() {
+      selectColor(Colors.red);
+      widget.infoLamp = displayLampInfos();
+    });
+  }
+
+  void setBrightness(dynamic value) {
+    setState(() {
+      valueCursor = value;
+      int valueInt = valueCursor.toInt();
+      changeBrightnessWithSlider(valueInt);
+      widget.infoLamp = displayLampInfos();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,159 +99,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.red, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.red);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.red), color: Colors.red),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.orange, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.orange);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.orange), color: Colors.orange),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.yellow, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.yellow);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.yellow), color: Colors.yellow),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.white, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          selectColor(Colors.white);
-                          setState(() {
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.white), color: Colors.white),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.green, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          selectColor(Colors.green);
-                          setState(() {
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.green), color: Colors.green),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.lightBlue, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.lightBlue);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.lightBlue), color: Colors.lightBlue),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.indigo.shade900, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.indigo.shade900);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.indigo.shade900), color: Colors.indigo.shade900),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.purple, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.purple);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.purple), color: Colors.purple),
                   Spacer(flex: 1),
-                  Expanded(
-                    child: ElevatedButton(
-                        child: Text(""),
-                        style: ElevatedButton.styleFrom(primary: Colors.pink.shade400, elevation: 10, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90))),
-                        onPressed: () {
-                          setState(() {
-                            selectColor(Colors.pink.shade400);
-                            widget.infoLamp = displayLampInfos();
-                          });
-                        }),
-                  ),
+                  ColorPalette(setColor: () => setColor(Colors.pink.shade400), color: Colors.pink.shade400),
                   Spacer(flex: 1),
                 ],
               ),
             ),
             flex: 1,
           ),
-          Expanded(
-            // les switch button
-            child: Container(
-              color: Colors.white,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10.0),
-                          Text("🔅                                    Brightness                                   🔆"),
-                          SizedBox(height: 1.0),
-                          SfSlider(
-                            activeColor: Colors.yellow.shade600,
-                            inactiveColor: Colors.yellow.shade200,
-                            min: 0,
-                            max: 100,
-                            value: valueCursor,
-                            interval: 100,
-                            showTicks: false,
-                            showLabels: true,
-                            enableTooltip: true,
-                            onChanged: (dynamic value) {
-                              setState(() {
-                                valueCursor = value;
-                                int valueInt = valueCursor.toInt();
-                                changeBrightnessWithSlider(valueInt);
-                                widget.infoLamp = displayLampInfos();
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          BrightnessCursor(valueCursor: valueCursor, setBrightness: setBrightness),
           Expanded(
             // les switch button
             child: Container(
