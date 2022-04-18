@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setColor(Color color) {
     setState(() {
-      selectColor(Colors.red);
+      selectColor(color);
       widget.infoLamp = displayLampInfos();
     });
   }
