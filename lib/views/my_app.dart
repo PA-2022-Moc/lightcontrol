@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Color colorBackground = Colors.blue;
   static Lamp lamp = new Lamp();
   String line1 = "LAMPE INFOS \n";
   String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
@@ -41,8 +42,8 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Color changeColorBackgout() {
-    return Colors.blue;
+  void changeColorBackgout(Color newColorBackGround) {
+    colorBackground = newColorBackGround;
   }
 
   @override
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           preferredSize: Size.fromHeight(100.0), // here the desired height
           child: AppBar(
             toolbarHeight: 120.0,
-            backgroundColor: changeColorBackgout(),
+            backgroundColor: colorBackground,
             elevation: 1,
             centerTitle: true,
             title: InkWell(
