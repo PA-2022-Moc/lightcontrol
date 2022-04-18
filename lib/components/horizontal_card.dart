@@ -14,9 +14,9 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: SizedBox(
+          height: 800,
           child: PageView.builder(
             itemCount: 2,
             controller: PageController(viewportFraction: 0.7),
@@ -25,7 +25,7 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
               return Transform.scale(
                 scale: i == _index ? 1 : 0.9,
                 child: Card(
-                  elevation: 10,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   child: Center(

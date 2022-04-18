@@ -3,7 +3,7 @@ class Lamp {
   bool auto = false;
   bool music = false;
   int brightness = 50;
-  String color = "FFFFFF";
+  String color = "00B0F0";
 
   void infos() {
     print("      LAMPE INFOS \n");
@@ -21,9 +21,9 @@ class Lamp {
     }
 
     if (music == false) {
-      print("| Mode music désactivé |\n");
+      print("| Mode aleatoire désactivé |\n");
     } else {
-      print("| Mode music activé    |\n");
+      print("| Mode aleatoire activé    |\n");
     }
 
     print("| brightness à $brightness      |\n");
@@ -52,9 +52,9 @@ class Lamp {
     }
 
     if (music == false) {
-      line5 = "  Mode music désactivé  \n";
+      line5 = "  Mode aleatoire désactivé  \n";
     } else {
-      line5 = "  Mode music activé        \n";
+      line5 = "  Mode aleatoire activé        \n";
     }
 
     String line6 = "  brightness à $brightness         \n";

@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.yellow: 'FFFF00',
     Colors.white: 'FFFFFF',
     Colors.green: '00B050',
-    Colors.lightBlue: '00B0F0',
+    Colors.blue: '00B0F0',
     Colors.indigo.shade900: '002060',
     Colors.purple: '7030A0',
     Colors.pink.shade400: 'FD6C9E'
@@ -96,13 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         children: <Widget>[
           FractionallySizedBox(
-            alignment: Alignment.topCenter,
             widthFactor: 2.0,
             child: Container(
-                color: Colors.white,
-                height: 280,
-                margin: const EdgeInsets.only(top: 0.8),
-                padding: const EdgeInsets.all(0.8),
+                height: 290,
+                // margin: const EdgeInsets.only(top: 0.8),
+                // padding: const EdgeInsets.all(0.8),
                 child: HorizontalCaroussel(content: widget.infoLamp)),
           ),
           Expanded(
@@ -138,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Spacer(flex: 1),
                   ColorPalette(
                       setColor: () => setColor(Colors.lightBlue),
-                      color: Colors.lightBlue),
+                      color: Colors.blue),
                   Spacer(flex: 1),
                   ColorPalette(
                       setColor: () => setColor(Colors.indigo.shade900),
@@ -167,13 +165,17 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: <Widget>[
                   SwitchButton(
-                      activeText: "  💡",
-                      isSwitched: isSwitched,
-                      setSwitch: setSwitch),
+                    activeText: "  💡",
+                    isSwitched: isSwitched,
+                    setSwitch: setSwitch,
+                    topText: "Auto Brightness",
+                  ),
                   SwitchButton(
-                      activeText: "  🎵",
-                      isSwitched: isSwitched2,
-                      setSwitch: setSwitch2)
+                    activeText: "  🔀",
+                    isSwitched: isSwitched2,
+                    setSwitch: setSwitch2,
+                    topText: "Random Mode",
+                  )
                 ],
               ),
             ),

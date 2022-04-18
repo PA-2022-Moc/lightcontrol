@@ -11,6 +11,7 @@ class MyApp extends StatefulWidget {
     //You missed initialization part of state object.
   }
 }
+
 class _MyAppState extends State<MyApp> {
   static Lamp lamp = new Lamp();
   String line1 = "LAMPE INFOS \n";
@@ -18,9 +19,11 @@ class _MyAppState extends State<MyApp> {
   String line3 = "  Eteint                             \n";
   //String concatLinesWhenIsOff = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n";
 
-  String infoLamp = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n" + "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
+  String infoLamp = "LAMPE INFOS \n" +
+      "||||||||||||||||||||||||||||||||||||||||||||\n" +
+      "  Eteint                             \n" +
+      "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
   //lamp.infos(); //"ALLUMER LA LAMPE";
-
 
   String _statePower = 'images/power-off.jpeg';
 
@@ -38,6 +41,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Color changeColorBackgout() {
+    return Colors.blue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,7 +58,7 @@ class _MyAppState extends State<MyApp> {
           preferredSize: Size.fromHeight(100.0), // here the desired height
           child: AppBar(
             toolbarHeight: 120.0,
-            backgroundColor: Colors.blue.shade400,
+            backgroundColor: changeColorBackgout(),
             elevation: 1,
             centerTitle: true,
             title: InkWell(

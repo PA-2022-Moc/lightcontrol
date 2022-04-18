@@ -5,7 +5,14 @@ class SwitchButton extends StatefulWidget {
   final String activeText;
   final bool isSwitched;
   final Function setSwitch;
-  const SwitchButton({Key? key, required this.activeText, required this.isSwitched, required this.setSwitch}) : super(key: key);
+  final String topText;
+  const SwitchButton(
+      {Key? key,
+      required this.activeText,
+      required this.isSwitched,
+      required this.setSwitch,
+      required this.topText})
+      : super(key: key);
 
   @override
   State<SwitchButton> createState() => _SwitchButtonState();
@@ -19,7 +26,7 @@ class _SwitchButtonState extends State<SwitchButton> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 10.0),
-            Text("Auto Brightness"),
+            Text(widget.topText),
             SizedBox(height: 17.0),
             FlutterSwitch(
               activeText: widget.activeText,
