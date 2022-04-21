@@ -13,8 +13,8 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
   int _index = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Container(
+      child: Center(
         child: SizedBox(
           height: 800,
           child: PageView.builder(
