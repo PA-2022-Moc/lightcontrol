@@ -1,7 +1,7 @@
 class Lamp {
   bool start = false;
-  bool auto = false;
-  bool music = false;
+  bool autoBrightness = false;
+  bool randomMode = false;
   int brightness = 50;
   String color = "00B0F0";
 
@@ -14,13 +14,13 @@ class Lamp {
       print("| Allumé               |\n");
     }
 
-    if (auto == false) {
-      print("| Mode auto désactivé  |\n");
+    if (autoBrightness == false) {
+      print("| Mode auto brightness désactivé  |\n");
     } else {
-      print("| Mode auto activé     |\n");
+      print("| Mode auto brightness activé     |\n");
     }
 
-    if (music == false) {
+    if (randomMode == false) {
       print("| Mode aleatoire désactivé |\n");
     } else {
       print("| Mode aleatoire activé    |\n");
@@ -45,13 +45,13 @@ class Lamp {
       line3 = "  Allumé                                    \n";
     }
 
-    if (auto == false) {
-      line4 = "  Mode auto désactivé    \n";
+    if (autoBrightness == false) {
+      line4 = "  Mode auto brightness désactivé    \n";
     } else {
-      line4 = "  Mode auto activé          \n";
+      line4 = "  Mode auto brightness activé          \n";
     }
 
-    if (music == false) {
+    if (randomMode == false) {
       line5 = "  Mode aleatoire désactivé  \n";
     } else {
       line5 = "  Mode aleatoire activé        \n";
@@ -61,7 +61,16 @@ class Lamp {
     String line7 = "  color à $color                            \n";
 
     List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
-    List<String> concatLines = [line1, line2, line3, line4, line5, line6, line7, line2];
+    List<String> concatLines = [
+      line1,
+      line2,
+      line3,
+      line4,
+      line5,
+      line6,
+      line7,
+      line2
+    ];
 
     if (start == false) {
       concatLine = concatLinesWhenIsOff.join();
@@ -82,30 +91,31 @@ class Lamp {
     }
   }
 
-  bool checkIfOnOff() {
+  bool checkIfOn() {
     if (start == false) {
+      print("LA LAMPE EST ETEINTE VEUILLEZ L'ALLUMER AVANT");
       return false;
     } else {
       return true;
     }
   }
 
-  void switchAuto(bool switchMode) {
+  void switchAutoBrightness(bool switchMode) {
     // if (auto == false) {
     //   auto = true;
     // } else {
     //   auto = false;
     // }
-    auto = switchMode;
+    autoBrightness = switchMode;
   }
 
-  void switchMusic(bool switchMode) {
+  void switchRandomMode(bool switchMode) {
     // if (music == false) {
     //   music = true;
     // } else {
     //   music = false;
     // }
-    music = switchMode;
+    randomMode = switchMode;
   }
 
   void changeBrightness(int cursor) {

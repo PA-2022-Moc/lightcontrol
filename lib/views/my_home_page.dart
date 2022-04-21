@@ -32,21 +32,21 @@ class _MyHomePageState extends State<MyHomePage> {
   };
 
   void selectColor(Color color) {
-    if (!widget.lamp.checkIfOnOff()) {
-      print('allumer la lampe avant de selectionner une couleur');
-    } else {
+    // if (!widget.lamp.checkIfOn()) {
+    //   print('allumer la lampe avant de selectionner une couleur');
+    // } else {
       String colorSelected = colorHex[color]!;
       widget.lamp.changeColor(colorSelected);
-    }
+    //}
     //lamp.infos();
   }
 
-  void switchBrightnessMode(bool switchMode) {
-    widget.lamp.switchAuto(switchMode);
+  void switchAutoBrightness(bool switchMode) {
+    widget.lamp.switchAutoBrightness(switchMode);
   }
 
-  void switchMusicMode(bool switchMode) {
-    widget.lamp.switchMusic(switchMode);
+  void switchRandomMode(bool switchMode) {
+    widget.lamp.switchRandomMode(switchMode);
   }
 
   void changeBrightnessWithSlider(int curserValue) {
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void setSwitch(bool val) {
     setState(() {
       isSwitched = val;
-      switchBrightnessMode(isSwitched);
+      switchAutoBrightness(isSwitched);
       widget.infoLamp = displayLampInfos();
     });
   }
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void setSwitch2(bool val) {
     setState(() {
       isSwitched2 = val;
-      switchMusicMode(isSwitched2);
+      switchRandomMode(isSwitched2);
       widget.infoLamp = displayLampInfos();
     });
   }
