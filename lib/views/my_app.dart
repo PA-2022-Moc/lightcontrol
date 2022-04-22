@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lightcontrol/lamp.dart';
+import 'package:lightcontrol/model/lamp.dart';
 import 'package:lightcontrol/views/my_home_page.dart';
 
 class MyApp extends StatefulWidget {

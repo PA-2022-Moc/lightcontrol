@@ -1,9 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lightcontrol/components/brightness_cursor.dart';
 import 'package:lightcontrol/components/color_palette.dart';
 import 'package:lightcontrol/components/horizontal_card.dart';
 import 'package:lightcontrol/components/switch_button.dart';
-import 'package:lightcontrol/lamp.dart';
+import 'package:lightcontrol/factory/lamp_factory.dart';
+import 'package:lightcontrol/model/lamp.dart';
 
 class MyHomePage extends StatefulWidget {
   String infoLamp;
@@ -16,9 +18,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int reponse = -1;
   bool isSwitched = false;
   bool isSwitched2 = false;
   double valueCursor = 50.0; // 50,0
+  LampFactory lampFactoryTest = LampFactory();
+  String nameTest = "";
   var colorHex = {
     Colors.red: 'FF0000',
     Colors.orange: 'FFC000',
@@ -31,12 +36,28 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.pink.shade400: 'FD6C9E'
   };
 
+  void getHttp() async {
+    try {
+      var response =
+          await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
+      print(response);
+      this.lampFactoryTest = LampFactory.fromJson(response.data);
+      print(lampFactoryTest);
+      nameTest = lampFactoryTest.name;
+      setState(() {});
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Erreur reseau')));
+    }
+  }
+
   void selectColor(Color color) {
     // if (!widget.lamp.checkIfOn()) {
     //   print('allumer la lampe avant de selectionner une couleur');
     // } else {
-      String colorSelected = colorHex[color]!;
-      widget.lamp.changeColor(colorSelected);
+    String colorSelected = colorHex[color]!;
+    widget.lamp.changeColor(colorSelected);
     //}
     //lamp.infos();
   }
@@ -99,10 +120,38 @@ class _MyHomePageState extends State<MyHomePage> {
           FractionallySizedBox(
             widthFactor: 2.0,
             child: Container(
-                height: 290,
+                height: 250,
                 // margin: const EdgeInsets.only(top: 0.8),
                 // padding: const EdgeInsets.all(0.8),
-                child: HorizontalCaroussel(content: widget.infoLamp)),
+                child: HorizontalCaroussel(
+                    content: widget.infoLamp)), // getHttp widget.infoLamp
+          ),
+          Container(
+            color: Colors.red,
+            height: 100.0,
+            width: 414,
+            child: Center(
+              child: Column(
+                // add Column
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Welcome',
+                      style: TextStyle(
+                          // your text
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                  RaisedButton(
+                    onPressed: () {
+                      print("truc");
+                      getHttp();
+                      print("bla  " + nameTest);
+                    },
+                    child: Text('Button'),
+                  ), // your button beneath text
+                ],
+              ),
+            ),
           ),
           Expanded(
             // les color buttons
@@ -169,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     activeText: "  💡",
                     isSwitched: isSwitched,
                     setSwitch: setSwitch,
-                    topText: "Auto Brightness",
+                    topText: 'Auto Brightness', //
                   ),
                   SwitchButton(
                     activeText: "  🔀",

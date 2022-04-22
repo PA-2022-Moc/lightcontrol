@@ -1,4 +1,6 @@
 class Lamp {
+  String id = "";
+  String name = "";
   bool start = false;
   bool autoBrightness = false;
   bool randomMode = false;
