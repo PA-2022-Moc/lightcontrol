@@ -59,14 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void getLamp() {
-    lampService.getLampState(context).then((Lamp result) {
-      setState(() {
-        widget.defaultLamp = result;
-      });
-    });
-    print(widget.defaultLamp.displayInfosLamp());
-  }
+    // void getLampFromAPI() {
+    //   lampService.getLampState(context).then((Lamp result) {
+    //     setState(() {
+    //       widget.defaultLamp = result;
+    //     });
+    //   });
+    //   print(widget.defaultLamp.displayInfosLamp());
+    // }
 
   void selectColor(Color color) {
     // if (!widget.lamp.checkIfOn()) {
@@ -161,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       print("truc");
                       //getHttp();
-                      getLamp();
+                      print(widget.defaultLamp.displayInfosLamp());
                       print("bla  " + nameTest);
                     },
                     child: Text('TEST'),

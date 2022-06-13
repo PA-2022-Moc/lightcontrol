@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lightcontrol/factory/lamp_factory.dart';
 import 'package:lightcontrol/model/lamp.dart';
 import 'package:lightcontrol/views/my_home_page.dart';
+import 'package:lightcontrol/services/lamp_service.dart';
+import 'package:lightcontrol/model/lamp.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,6 +31,11 @@ class _MyAppState extends State<MyApp> {
 
   String _statePower = 'images/power-off.jpeg';
 
+  LampFactory lampFactoryTest = LampFactory();
+  LampService lampService = LampService();
+
+  Lamp emptyLamp = Lamp();
+
   void changeStatePower() {
     setState(() {
       if (_statePower == 'images/power-off.jpeg') {
@@ -42,6 +50,27 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Lamp getLampFromAPI() {
+    Lamp defaultLampAPI = Lamp();
+    Lamp defaultLamp = Lamp();
+    lampService.getLampState(context).then((Lamp result) {
+      setState(() {
+        defaultLampAPI = result;
+      });
+    });
+    print(defaultLampAPI.displayInfosLamp());
+
+    defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
+    defaultLamp.randomMode = defaultLampAPI.randomMode;
+    defaultLamp.brightness = defaultLampAPI.brightness;
+    defaultLamp.color = defaultLampAPI.color;
+    defaultLamp.start = defaultLampAPI.start;
+
+    return defaultLamp;
+  }
+
+  late Lamp retrieveLamp = getLampFromAPI();
+
   void changeColorBackgout(Color newColorBackGround) {
     colorBackground = newColorBackGround;
   }
@@ -55,7 +84,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: MyHomePage(
           infoLamp: infoLamp,
-          defaultLamp: lamp,
+          defaultLamp: retrieveLamp,
           newLamp: lamp,
         ),
         backgroundColor: Colors.white,
