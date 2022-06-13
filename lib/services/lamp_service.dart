@@ -12,7 +12,6 @@ class LampService {
     try {
       var response =
           await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
-      //this.response = response.data;
       print(response);
       this.lampFactory = LampFactory.fromJson(response.data);
       print("ici azdazdazazdazdazd");
@@ -23,12 +22,15 @@ class LampService {
       defaultLampAPI.color = lampFactory.color;
       defaultLampAPI.start = lampFactory.start;
 
-      print(defaultLampAPI.displayInfosLamp());
+      //print(defaultLampAPI.displayInfosLamp());
+
       return defaultLampAPI;
+
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Erreur reseau')));
+
       return defaultLampAPI;
     }
   }

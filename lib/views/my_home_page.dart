@@ -60,8 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getLamp() {
-    lampService.getLampState(context);
-    //widget.newLamp.changeBrightness(lampService.getLampState(context).lampFactoryTest.brightness.toString());
+    lampService.getLampState(context).then((Lamp result) {
+      setState(() {
+        widget.defaultLamp = result;
+      });
+    });
+    print(widget.defaultLamp.displayInfosLamp());
   }
 
   void selectColor(Color color) {
