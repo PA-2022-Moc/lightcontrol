@@ -10,9 +10,14 @@ import 'package:lightcontrol/services/lamp_service.dart';
 
 class MyHomePage extends StatefulWidget {
   String infoLamp;
-  Lamp lamp;
-  MyHomePage({Key? key, required this.infoLamp, required this.lamp})
-      : super(key: key);
+  Lamp defaultLamp;
+  Lamp newLamp;
+  MyHomePage({
+    Key? key,
+    required this.infoLamp,
+    required this.defaultLamp,
+    required this.newLamp,
+  }) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -56,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void getLamp() {
     lampService.getLampState(context);
-    
+    //widget.newLamp.changeBrightness(lampService.getLampState(context).lampFactoryTest.brightness.toString());
   }
 
   void selectColor(Color color) {
@@ -64,25 +69,25 @@ class _MyHomePageState extends State<MyHomePage> {
     //   print('allumer la lampe avant de selectionner une couleur');
     // } else {
     String colorSelected = colorHex[color]!;
-    widget.lamp.changeColor(colorSelected);
+    widget.defaultLamp.changeColor(colorSelected);
     //}
     //lamp.infos();
   }
 
   void switchAutoBrightness(bool switchMode) {
-    widget.lamp.switchAutoBrightness(switchMode);
+    widget.defaultLamp.switchAutoBrightness(switchMode);
   }
 
   void switchRandomMode(bool switchMode) {
-    widget.lamp.switchRandomMode(switchMode);
+    widget.defaultLamp.switchRandomMode(switchMode);
   }
 
   void changeBrightnessWithSlider(int curserValue) {
-    widget.lamp.changeBrightness(curserValue);
+    widget.defaultLamp.changeBrightness(curserValue);
   }
 
   String displayLampInfos() {
-    return widget.lamp.displayInfosLamp();
+    return widget.defaultLamp.displayInfosLamp();
   }
 
   void setColor(Color color) {

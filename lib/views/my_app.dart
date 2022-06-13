@@ -53,7 +53,11 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter light control',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: MyHomePage(infoLamp: infoLamp, lamp: lamp),
+        body: MyHomePage(
+          infoLamp: infoLamp,
+          defaultLamp: lamp,
+          newLamp: lamp,
+        ),
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0), // here the desired height
