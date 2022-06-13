@@ -6,6 +6,7 @@ import 'package:lightcontrol/components/horizontal_card.dart';
 import 'package:lightcontrol/components/switch_button.dart';
 import 'package:lightcontrol/factory/lamp_factory.dart';
 import 'package:lightcontrol/model/lamp.dart';
+import 'package:lightcontrol/services/lamp_service.dart';
 
 class MyHomePage extends StatefulWidget {
   String infoLamp;
@@ -23,6 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isSwitched2 = false;
   double valueCursor = 50.0; // 50,0
   LampFactory lampFactoryTest = LampFactory();
+  LampService lampService = LampService();
   String nameTest = "";
   var colorHex = {
     Colors.red: 'FF0000',
@@ -50,6 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Erreur reseau')));
     }
+  }
+
+  void getLamp() {
+    lampService.getLampState(context);
+    
   }
 
   void selectColor(Color color) {
@@ -144,10 +151,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   RaisedButton(
                     onPressed: () {
                       print("truc");
-                      getHttp();
+                      //getHttp();
+                      getLamp();
                       print("bla  " + nameTest);
                     },
-                    child: Text('Button'),
+                    child: Text('TEST'),
                   ), // your button beneath text
                 ],
               ),
