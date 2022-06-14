@@ -220,7 +220,8 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 1,
           ),
           BrightnessCursor(
-              valueCursor: valueCursor, setBrightness: setBrightness),
+              valueCursor: widget.defaultLamp.brightness.toDouble(),
+              setBrightness: setBrightness),
           //  "  🎵" les switch button
 
           Expanded(
@@ -230,13 +231,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   SwitchButton(
                     activeText: "  💡",
-                    isSwitched: isSwitchedAutoBrightness,
+                    isSwitched: widget.defaultLamp.autoBrightness,
                     setSwitch: setSwitchAutoBrightnes,
                     topText: 'Auto Brightness', //
                   ),
                   SwitchButton(
                     activeText: "  🔀",
-                    isSwitched: isSwitchedRandomMode,
+                    isSwitched: widget.defaultLamp.randomMode,
                     setSwitch: setSwitchRandomMode,
                     topText: "Random Mode",
                   )
