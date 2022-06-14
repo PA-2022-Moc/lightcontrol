@@ -36,7 +36,29 @@ class _MyAppState extends State<MyApp> {
 
   Lamp emptyLamp = Lamp();
 
-  void changeStatePower() {
+  Lamp getLampFromAPI() {
+    Lamp defaultLampAPI = Lamp();
+    Lamp defaultLamp = Lamp();
+    lampService.getLampState(context).then((Lamp result) {
+      setState(() {
+        defaultLampAPI = result;
+
+        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
+        defaultLamp.randomMode = defaultLampAPI.randomMode;
+        defaultLamp.brightness = defaultLampAPI.brightness;
+        defaultLamp.color = defaultLampAPI.color;
+        defaultLamp.start = defaultLampAPI.start;
+
+        defaultLamp.consoleInfos();
+      });
+    });
+
+    return defaultLamp;
+  }
+
+  late Lamp retrieveLamp = getLampFromAPI();
+
+  void changeStatePower(retrieveLamp) {
     setState(() {
       if (_statePower == 'images/power-off.jpeg') {
         _statePower = 'images/power-on.jpeg';
@@ -44,32 +66,13 @@ class _MyAppState extends State<MyApp> {
         _statePower = 'images/power-off.jpeg';
       }
       lamp.switchOnOff();
-      infoLamp = lamp.displayInfosLamp();
+      infoLamp = lamp.displayInfosLampOnScreen(retrieveLamp);
 
       //lamp.infos();
     });
   }
 
-  Lamp getLampFromAPI() {
-    Lamp defaultLampAPI = Lamp();
-    Lamp defaultLamp = Lamp();
-    lampService.getLampState(context).then((Lamp result) {
-      setState(() {
-        defaultLampAPI = result;
-      });
-    });
-    print(defaultLampAPI.displayInfosLamp());
-
-    defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
-    defaultLamp.randomMode = defaultLampAPI.randomMode;
-    defaultLamp.brightness = defaultLampAPI.brightness;
-    defaultLamp.color = defaultLampAPI.color;
-    defaultLamp.start = defaultLampAPI.start;
-
-    return defaultLamp;
-  }
-
-  late Lamp retrieveLamp = getLampFromAPI();
+  
 
   void changeColorBackgout(Color newColorBackGround) {
     colorBackground = newColorBackGround;
@@ -97,7 +100,7 @@ class _MyAppState extends State<MyApp> {
             centerTitle: true,
             title: InkWell(
               onTap: () {
-                changeStatePower();
+                changeStatePower(retrieveLamp);
               },
               child: Image.asset(
                 _statePower,

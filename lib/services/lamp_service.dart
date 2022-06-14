@@ -14,7 +14,6 @@ class LampService {
           await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
       print(response);
       this.lampFactory = LampFactory.fromJson(response.data);
-      print("ici azdazdazazdazdazd");
 
       defaultLampAPI.autoBrightness = lampFactory.autoBrightness;
       defaultLampAPI.randomMode = lampFactory.randomMode;
@@ -22,10 +21,7 @@ class LampService {
       defaultLampAPI.color = lampFactory.color;
       defaultLampAPI.start = lampFactory.start;
 
-      //print(defaultLampAPI.displayInfosLamp());
-
       return defaultLampAPI;
-
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context)

@@ -7,33 +7,33 @@ class Lamp {
   int brightness = 50;
   String color = "00B0F0";
 
-  void infos() {
-    print("      LAMPE INFOS \n");
-    print("||||||||||||||||||||||||");
+  void consoleInfos() {
+    print("      LAMPE CONSOLE INFOS \n");
+    print("||||||||||||||||||||||||||||||||");
     if (start == false) {
-      print("| Eteint               |\n");
+      print("| Eteint               \n");
     } else {
-      print("| Allumé               |\n");
+      print("| Allumé               \n");
     }
 
     if (autoBrightness == false) {
-      print("| Mode auto brightness désactivé  |\n");
+      print("| Mode auto brightness désactivé  \n");
     } else {
-      print("| Mode auto brightness activé     |\n");
+      print("| Mode auto brightness activé     \n");
     }
 
     if (randomMode == false) {
-      print("| Mode aleatoire désactivé |\n");
+      print("| Mode aleatoire désactivé \n");
     } else {
-      print("| Mode aleatoire activé    |\n");
+      print("| Mode aleatoire activé    \n");
     }
 
-    print("| brightness à $brightness      |\n");
-    print("| color à $color       |\n");
-    print("|||||||||||||||||||||||| \n");
+    print("| brightness à $brightness      \n");
+    print("| color à $color       \n");
+    print("||||||||||||||||||||||||||||||||\n");
   }
 
-  String displayInfosLamp() {
+  String displayInfosLampOnScreen(Lamp lamp) {
     String line3;
     String line4;
     String line5;
@@ -41,26 +41,26 @@ class Lamp {
 
     String line1 = "LAMPE INFOS \n";
     String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
-    if (start == false) {
+    if (lamp.start == false) {
       line3 = "  Eteint                             \n";
     } else {
       line3 = "  Allumé                                    \n";
     }
 
-    if (autoBrightness == false) {
+    if (lamp.autoBrightness == false) {
       line4 = "  Mode auto brightness désactivé    \n";
     } else {
       line4 = "  Mode auto brightness activé          \n";
     }
 
-    if (randomMode == false) {
+    if (lamp.randomMode == false) {
       line5 = "  Mode aleatoire désactivé  \n";
     } else {
       line5 = "  Mode aleatoire activé        \n";
     }
 
-    String line6 = "  brightness à $brightness         \n";
-    String line7 = "  color à $color                            \n";
+    String line6 = "  brightness à ${lamp.brightness}         \n";
+    String line7 = "  color à ${lamp.color}                            \n";
 
     List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
     List<String> concatLines = [

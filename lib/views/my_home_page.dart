@@ -24,13 +24,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int reponse = -1;
-  bool isSwitched = false;
-  bool isSwitched2 = false;
-  double valueCursor = 50.0; // 50,0
+  late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
+  late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
+  late double valueCursor = widget.defaultLamp.brightness.toDouble(); // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
-  String nameTest = "";
   var colorHex = {
     Colors.red: 'FF0000',
     Colors.orange: 'FFC000',
@@ -43,30 +41,29 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.pink.shade400: 'FD6C9E'
   };
 
-  void getHttp() async {
-    try {
-      var response =
-          await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
-      print(response);
-      this.lampFactoryTest = LampFactory.fromJson(response.data);
-      print(lampFactoryTest);
-      nameTest = lampFactoryTest.name;
-      setState(() {});
-    } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erreur reseau')));
-    }
-  }
+  // void getHttp() async {
+  //   try {
+  //     var response =
+  //         await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
+  //     print(response);
+  //     this.lampFactoryTest = LampFactory.fromJson(response.data);
+  //     print(lampFactoryTest);
+  //     setState(() {});
+  //   } catch (e) {
+  //     print(e);
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text('Erreur reseau')));
+  //   }
+  // }
 
-    // void getLampFromAPI() {
-    //   lampService.getLampState(context).then((Lamp result) {
-    //     setState(() {
-    //       widget.defaultLamp = result;
-    //     });
-    //   });
-    //   print(widget.defaultLamp.displayInfosLamp());
-    // }
+  // void getLampFromAPI() {
+  //   lampService.getLampState(context).then((Lamp result) {
+  //     setState(() {
+  //       widget.defaultLamp = result;
+  //     });
+  //   });
+  //   print(widget.defaultLamp.displayInfosLamp());
+  // }
 
   void selectColor(Color color) {
     // if (!widget.lamp.checkIfOn()) {
@@ -91,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String displayLampInfos() {
-    return widget.defaultLamp.displayInfosLamp();
+    return widget.defaultLamp.displayInfosLampOnScreen(widget.defaultLamp);
   }
 
   void setColor(Color color) {
@@ -110,18 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void setSwitch(bool val) {
+  void setSwitchAutoBrightnes(bool val) {
     setState(() {
-      isSwitched = val;
-      switchAutoBrightness(isSwitched);
+      isSwitchedAutoBrightness = val;
+      switchAutoBrightness(isSwitchedAutoBrightness);
       widget.infoLamp = displayLampInfos();
     });
   }
 
-  void setSwitch2(bool val) {
+  void setSwitchRandomMode(bool val) {
     setState(() {
-      isSwitched2 = val;
-      switchRandomMode(isSwitched2);
+      isSwitchedRandomMode = val;
+      switchRandomMode(isSwitchedRandomMode);
       widget.infoLamp = displayLampInfos();
     });
   }
@@ -161,8 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () {
                       print("truc");
                       //getHttp();
-                      print(widget.defaultLamp.displayInfosLamp());
-                      print("bla  " + nameTest);
+                      print(widget.defaultLamp
+                          .displayInfosLampOnScreen(widget.defaultLamp));
                     },
                     child: Text('TEST'),
                   ), // your button beneath text
@@ -233,14 +230,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   SwitchButton(
                     activeText: "  💡",
-                    isSwitched: isSwitched,
-                    setSwitch: setSwitch,
+                    isSwitched: isSwitchedAutoBrightness,
+                    setSwitch: setSwitchAutoBrightnes,
                     topText: 'Auto Brightness', //
                   ),
                   SwitchButton(
                     activeText: "  🔀",
-                    isSwitched: isSwitched2,
-                    setSwitch: setSwitch2,
+                    isSwitched: isSwitchedRandomMode,
+                    setSwitch: setSwitchRandomMode,
                     topText: "Random Mode",
                   )
                 ],
