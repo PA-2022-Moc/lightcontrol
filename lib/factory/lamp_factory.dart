@@ -11,12 +11,11 @@ part 'lamp_factory.g.dart';
 class LampFactory {
   LampFactory();
 
-  String name = "";
-  bool start = false;
-  bool autoBrightness = false;
-  bool randomMode = false;
-  int brightness = 50;
-  String color = "00B0F0";
+  bool powerOn = true;
+  bool autoBrightness = true;
+  bool randomMode = true;
+  int brightness = 100;
+  String color = "FFFFFC";
 
   factory LampFactory.fromJson(Map<String, dynamic> json) =>
       _$LampFactoryFromJson(json);

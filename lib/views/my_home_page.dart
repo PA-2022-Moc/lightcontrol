@@ -219,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             flex: 1,
           ),
-          BrightnessCursor(
+          BrightnessCursor(            
               valueCursor: widget.defaultLamp.brightness.toDouble(),
               setBrightness: setBrightness),
           //  "  🎵" les switch button

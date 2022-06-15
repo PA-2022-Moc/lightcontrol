@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
   //lamp.infos(); //"ALLUMER LA LAMPE";
 
-  String _statePower = 'images/power-off.jpeg';
+  String _statePower = 'images/power-on.jpeg';
 
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
@@ -71,8 +71,6 @@ class _MyAppState extends State<MyApp> {
       //lamp.infos();
     });
   }
-
-  
 
   void changeColorBackgout(Color newColorBackGround) {
     colorBackground = newColorBackGround;
