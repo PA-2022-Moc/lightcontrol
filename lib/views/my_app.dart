@@ -18,14 +18,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Color colorBackground = Colors.blue;
   static Lamp lamp = new Lamp();
-  String line1 = "LAMPE INFOS \n";
-  String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
-  String line3 = "  Eteint                             \n";
   //String concatLinesWhenIsOff = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n";
 
   String infoLamp = "LAMPE INFOS \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n" +
-      "  Eteint                             \n" +
+      "  Chargement des données                          \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
   //lamp.infos(); //"ALLUMER LA LAMPE";
 
@@ -50,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         defaultLamp.start = defaultLampAPI.start;
 
         defaultLamp.consoleInfos();
+        infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
       });
     });
 

@@ -1,7 +1,7 @@
 class Lamp {
   String id = "";
   String name = "";
-  bool start = false;
+  bool start = true;
   bool autoBrightness = false;
   bool randomMode = false;
   int brightness = 50;
@@ -45,6 +45,7 @@ class Lamp {
       line3 = "  Eteint                             \n";
     } else {
       line3 = "  Allumé                                    \n";
+
     }
 
     if (lamp.autoBrightness == false) {
