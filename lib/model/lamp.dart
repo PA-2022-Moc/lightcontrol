@@ -35,7 +35,7 @@ class Lamp {
     print("||||||||||||||||||||||||||||||||\n");
   }
 
-  String displayInfosLampOnScreen(Lamp lamp) {
+  String displayInfosLampOnScreen() {
     String line3;
     String line4;
     String line5;
@@ -43,26 +43,26 @@ class Lamp {
 
     String line1 = "LAMPE INFOS \n";
     String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
-    if (lamp.start == false) {
+    if (start == false) {
       line3 = "  Eteint                             \n";
     } else {
       line3 = "  Allumé                                    \n";
     }
 
-    if (lamp.autoBrightness == false) {
+    if (autoBrightness == false) {
       line4 = "  Mode auto brightness désactivé    \n";
     } else {
       line4 = "  Mode auto brightness activé          \n";
     }
 
-    if (lamp.randomMode == false) {
+    if (randomMode == false) {
       line5 = "  Mode aleatoire désactivé  \n";
     } else {
       line5 = "  Mode aleatoire activé        \n";
     }
 
-    String line6 = "  brightness à ${lamp.brightness}         \n";
-    String line7 = "  color à ${lamp.color}                            \n";
+    String line6 = "  brightness à ${brightness}         \n";
+    String line7 = "  color à ${color}                            \n";
 
     List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
     List<String> concatLines = [

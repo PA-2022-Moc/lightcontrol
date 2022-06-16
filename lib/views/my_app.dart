@@ -25,12 +25,9 @@ class _MyAppState extends State<MyApp> {
       "  Chargement des données                          \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n";
 
-  String _statePower = 'images/power-on.jpeg';
-
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
-
-  Lamp emptyLamp = Lamp();
+  late String statePowerIMG = 'images/power-w.jpeg';
 
   Lamp getLampFromAPI() {
     Lamp defaultLampAPI = Lamp();
@@ -46,7 +43,13 @@ class _MyAppState extends State<MyApp> {
         defaultLamp.start = defaultLampAPI.start;
 
         defaultLamp.consoleInfos();
-        infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
+        infoLamp = defaultLamp.displayInfosLampOnScreen();
+
+        if (defaultLamp.start == true) {
+          statePowerIMG = 'images/power-on.jpeg';
+        } else {
+          statePowerIMG = 'images/power-off.jpeg';
+        }
       });
     });
 
@@ -58,14 +61,14 @@ class _MyAppState extends State<MyApp> {
   void changeStatePower(retrieveLamp) {
     bool lampPowerOnOff;
     setState(() {
-      if (_statePower == 'images/power-off.jpeg') {
-        _statePower = 'images/power-on.jpeg';
+      if (statePowerIMG == 'images/power-off.jpeg') {
+        statePowerIMG = 'images/power-on.jpeg';
       } else {
-        _statePower = 'images/power-off.jpeg';
+        statePowerIMG = 'images/power-off.jpeg';
       }
       lampPowerOnOff = lamp.switchOnOff();
       lampService.updateStart(context, lampPowerOnOff);
-      infoLamp = lamp.displayInfosLampOnScreen(retrieveLamp);
+      infoLamp = lamp.displayInfosLampOnScreen();
 
       //lamp.infos();
     });
@@ -73,6 +76,17 @@ class _MyAppState extends State<MyApp> {
 
   void changeColorBackgout(Color newColorBackGround) {
     colorBackground = newColorBackGround;
+  }
+
+  String defaultDisplayStart() {
+    retrieveLamp = getLampFromAPI();
+    String IMG;
+    if (retrieveLamp.start == true) {
+      IMG = 'images/power-on.jpeg';
+    } else {
+      IMG = 'images/power-off.jpeg';
+    }
+    return IMG;
   }
 
   @override
@@ -83,7 +97,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: MyHomePage(
-          infoLamp: '$infoLamp',
+          infoLamp: infoLamp,
           defaultLamp: retrieveLamp,
           newLamp: lamp,
         ),
@@ -100,7 +114,7 @@ class _MyAppState extends State<MyApp> {
                 changeStatePower(retrieveLamp);
               },
               child: Image.asset(
-                _statePower,
+                statePowerIMG,
                 height: 120,
               ),
             ),

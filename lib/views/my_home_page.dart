@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String displayLampInfos() {
-    return widget.defaultLamp.displayInfosLampOnScreen(widget.defaultLamp);
+    return widget.defaultLamp.displayInfosLampOnScreen();
   }
 
   void setColor(Color color) {
