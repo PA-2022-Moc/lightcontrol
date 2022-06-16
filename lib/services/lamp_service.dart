@@ -61,7 +61,20 @@ class LampService {
     }
   }
 
-  
+  Future<void> updateBrightness(context, int valueBrightness) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/brightness',
+        data: {
+          "brightness": valueBrightness,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
 
 //   Future<void> makePutRequest() async {
 //   final url = Uri.parse('$urlPrefix/posts/1');

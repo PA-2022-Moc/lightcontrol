@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
   late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
   late double valueCursor = widget.defaultLamp.brightness.toDouble();
-  String instruction = "";
+
   // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
@@ -79,11 +79,29 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void setBrightness(dynamic value) {
+    Lamp defaultLampAPI = Lamp();
+    Lamp defaultLamp = Lamp();
     setState(() {
       valueCursor = value;
       int valueInt = valueCursor.toInt();
-      changeBrightnessWithSlider(valueInt);
-      widget.infoLamp = displayLampInfos();
+
+      lampService.updateBrightness(context, valueInt);
+      lampService.getLampState(context).then((Lamp result) {
+        setState(() {
+          defaultLampAPI = result;
+
+          defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
+          defaultLamp.randomMode = defaultLampAPI.randomMode;
+          defaultLamp.brightness = defaultLampAPI.brightness;
+          defaultLamp.color = defaultLampAPI.color;
+          defaultLamp.start = defaultLampAPI.start;
+
+          defaultLamp.consoleInfos();
+          widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
+        });
+      });
+      //changeBrightnessWithSlider(valueInt);
+      //widget.infoLamp = displayLampInfos();
     });
   }
 
@@ -133,11 +151,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return defaultLamp;
   }
 
-  Lamp requestAPI() {
+  Lamp instructionToAPI(String instruction) {
     Lamp defaultLampAPI = Lamp();
     Lamp defaultLamp = Lamp();
+    //bool test = instruction;
 
-    lampService.updateStart(context, false);
+    if (instruction == "start") {
+      lampService.updateStart(context, true);
+    }
 
     lampService.getLampState(context).then((Lamp result) {
       setState(() {
@@ -190,9 +211,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white)),
                   RaisedButton(
                     onPressed: () {
+                      String instruction = "start";
                       setState(() {
                         print("truc");
-                        requestAPI();
+                        print(valueCursor);
+
+                        //instructionToAPI(instruction);
                       });
 
                       // print(widget.defaultLamp
@@ -257,8 +281,10 @@ class _MyHomePageState extends State<MyHomePage> {
             flex: 1,
           ),
           BrightnessCursor(
-              valueCursor: widget.defaultLamp.brightness.toDouble(),
-              setBrightness: setBrightness),
+            valueCursor: valueCursor,
+            setBrightness: setBrightness,
+          ),
+
           //  "  🎵" les switch button
 
           Expanded(
