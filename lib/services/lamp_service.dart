@@ -76,6 +76,51 @@ class LampService {
     }
   }
 
+  Future<void> updateAutoBrightness(context, bool isAutoBrightness) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/autoBrightness',
+        data: {
+          "autoBrightness": isAutoBrightness,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
+
+  Future<void> updateRandomMode(context, bool isRandomMode) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/randomMode',
+        data: {
+          "randomMode": isRandomMode,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
+
+  Future<void> updateColor(context, String color) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/color',
+        data: {
+          "color": color,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
+
 //   Future<void> makePutRequest() async {
 //   final url = Uri.parse('$urlPrefix/posts/1');
 //   final headers = {"Content-type": "application/json"};

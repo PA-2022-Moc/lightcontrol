@@ -26,10 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
-  late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
-  late double valueCursor = widget.defaultLamp.brightness.toDouble();
-
   // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
@@ -39,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.yellow: 'FFFF00',
     Colors.white: 'FFFFFF',
     Colors.green: '00B050',
-    Colors.blue: '00B0F0',
+    Colors.lightBlue: '00B0F0',
     Colors.indigo.shade900: '002060',
     Colors.purple: '7030A0',
     Colors.pink.shade400: 'FD6C9E'
@@ -51,20 +47,24 @@ class _MyHomePageState extends State<MyHomePage> {
     // } else {
     String colorSelected = colorHex[color]!;
     widget.defaultLamp.changeColor(colorSelected);
+    lampService.updateColor(context, colorSelected);
     //}
     //lamp.infos();
   }
 
   void switchAutoBrightness(bool switchMode) {
     widget.defaultLamp.switchAutoBrightness(switchMode);
+    lampService.updateAutoBrightness(context, switchMode);
   }
 
   void switchRandomMode(bool switchMode) {
     widget.defaultLamp.switchRandomMode(switchMode);
+    lampService.updateRandomMode(context, switchMode);
   }
 
   void changeBrightnessWithSlider(int curserValue) {
     widget.defaultLamp.changeBrightness(curserValue);
+    lampService.updateBrightness(context, curserValue);
   }
 
   String displayLampInfos() {
@@ -79,29 +79,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void setBrightness(dynamic value) {
-    Lamp defaultLampAPI = Lamp();
-    Lamp defaultLamp = Lamp();
     setState(() {
       valueCursor = value;
       int valueInt = valueCursor.toInt();
-
-      lampService.updateBrightness(context, valueInt);
-      lampService.getLampState(context).then((Lamp result) {
-        setState(() {
-          defaultLampAPI = result;
-
-          defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
-          defaultLamp.randomMode = defaultLampAPI.randomMode;
-          defaultLamp.brightness = defaultLampAPI.brightness;
-          defaultLamp.color = defaultLampAPI.color;
-          defaultLamp.start = defaultLampAPI.start;
-
-          defaultLamp.consoleInfos();
-          widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
-        });
-      });
-      //changeBrightnessWithSlider(valueInt);
-      //widget.infoLamp = displayLampInfos();
+      changeBrightnessWithSlider(valueInt);
+      widget.infoLamp = displayLampInfos();
     });
   }
 
@@ -121,66 +103,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void rebuildAllChildren(BuildContext context) {
-    void rebuild(Element el) {
-      el.markNeedsBuild();
-      el.visitChildren(rebuild);
-    }
-
-    (context as Element).visitChildren(rebuild);
-  }
-
-  Lamp getLampFromAPI() {
-    Lamp defaultLampAPI = Lamp();
-    Lamp defaultLamp = Lamp();
-    lampService.getLampState(context).then((Lamp result) {
-      setState(() {
-        defaultLampAPI = result;
-
-        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
-        defaultLamp.randomMode = defaultLampAPI.randomMode;
-        defaultLamp.brightness = defaultLampAPI.brightness;
-        defaultLamp.color = defaultLampAPI.color;
-        defaultLamp.start = defaultLampAPI.start;
-
-        defaultLamp.consoleInfos();
-        widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
-        widget.infoLamp = displayLampInfos();
-      });
-    });
-    return defaultLamp;
-  }
-
-  Lamp instructionToAPI(String instruction) {
-    Lamp defaultLampAPI = Lamp();
-    Lamp defaultLamp = Lamp();
-    //bool test = instruction;
-
-    if (instruction == "start") {
-      lampService.updateStart(context, true);
-    }
-
-    lampService.getLampState(context).then((Lamp result) {
-      setState(() {
-        defaultLampAPI = result;
-
-        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
-        defaultLamp.randomMode = defaultLampAPI.randomMode;
-        defaultLamp.brightness = defaultLampAPI.brightness;
-        defaultLamp.color = defaultLampAPI.color;
-        defaultLamp.start = defaultLampAPI.start;
-
-        defaultLamp.consoleInfos();
-        widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
-      });
-    });
-    return defaultLamp;
-  }
+  late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
+  late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
+  late double valueCursor = 35; //widget.defaultLamp.brightness.toDouble();
 
   @override
   Widget build(BuildContext context) {
     //final myAppState = _MyAppState();
-    rebuildAllChildren(context);
     return Container(
       //backgroundColor: Colors.white,
       child: Column(

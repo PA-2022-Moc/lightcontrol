@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   String infoLamp = "LAMPE INFOS \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n" +
       "  Chargement des données                          \n" +
-      "||||||||||||||||||||||||||||||||||||||||||||\n"; 
+      "||||||||||||||||||||||||||||||||||||||||||||\n";
 
   String _statePower = 'images/power-on.jpeg';
 
@@ -56,13 +56,15 @@ class _MyAppState extends State<MyApp> {
   late Lamp retrieveLamp = getLampFromAPI();
 
   void changeStatePower(retrieveLamp) {
+    bool lampPowerOnOff;
     setState(() {
       if (_statePower == 'images/power-off.jpeg') {
         _statePower = 'images/power-on.jpeg';
       } else {
         _statePower = 'images/power-off.jpeg';
       }
-      lamp.switchOnOff();
+      lampPowerOnOff = lamp.switchOnOff();
+      lampService.updateStart(context, lampPowerOnOff);
       infoLamp = lamp.displayInfosLampOnScreen(retrieveLamp);
 
       //lamp.infos();

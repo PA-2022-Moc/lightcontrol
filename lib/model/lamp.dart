@@ -1,10 +1,12 @@
+import 'package:lightcontrol/services/lamp_service.dart';
+
 class Lamp {
   String id = "";
   String name = "";
   bool start = true;
   bool autoBrightness = false;
   bool randomMode = false;
-  int brightness = 50;
+  int brightness = 60;
   String color = "00B0F0";
 
   void consoleInfos() {
@@ -45,7 +47,6 @@ class Lamp {
       line3 = "  Eteint                             \n";
     } else {
       line3 = "  Allumé                                    \n";
-
     }
 
     if (lamp.autoBrightness == false) {
@@ -86,12 +87,13 @@ class Lamp {
     return concatLine;
   }
 
-  void switchOnOff() {
+  bool switchOnOff() {
     if (start == false) {
       start = true;
     } else {
       start = false;
     }
+    return start;
   }
 
   bool checkIfOn() {
