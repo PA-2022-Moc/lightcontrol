@@ -23,8 +23,7 @@ class _MyAppState extends State<MyApp> {
   String infoLamp = "LAMPE INFOS \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n" +
       "  Chargement des données                          \n" +
-      "||||||||||||||||||||||||||||||||||||||||||||\n"; //lamp.displayInfosLamp();
-  //lamp.infos(); //"ALLUMER LA LAMPE";
+      "||||||||||||||||||||||||||||||||||||||||||||\n"; 
 
   String _statePower = 'images/power-on.jpeg';
 
@@ -82,7 +81,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: MyHomePage(
-          infoLamp: infoLamp,
+          infoLamp: '$infoLamp',
           defaultLamp: retrieveLamp,
           newLamp: lamp,
         ),

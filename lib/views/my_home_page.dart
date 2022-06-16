@@ -8,6 +8,8 @@ import 'package:lightcontrol/factory/lamp_factory.dart';
 import 'package:lightcontrol/model/lamp.dart';
 import 'package:lightcontrol/services/lamp_service.dart';
 
+import '../Message/DioExceptions.dart';
+
 class MyHomePage extends StatefulWidget {
   String infoLamp;
   Lamp defaultLamp;
@@ -26,7 +28,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
   late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
-  late double valueCursor = widget.defaultLamp.brightness.toDouble(); // 50,0
+  late double valueCursor = widget.defaultLamp.brightness.toDouble();
+  String instruction = "";
+  // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
   var colorHex = {
@@ -40,30 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Colors.purple: '7030A0',
     Colors.pink.shade400: 'FD6C9E'
   };
-
-  // void getHttp() async {
-  //   try {
-  //     var response =
-  //         await Dio().get('http://127.0.0.1:8010/api/v1/lamp/lamp=1');
-  //     print(response);
-  //     this.lampFactoryTest = LampFactory.fromJson(response.data);
-  //     print(lampFactoryTest);
-  //     setState(() {});
-  //   } catch (e) {
-  //     print(e);
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text('Erreur reseau')));
-  //   }
-  // }
-
-  // void getLampFromAPI() {
-  //   lampService.getLampState(context).then((Lamp result) {
-  //     setState(() {
-  //       widget.defaultLamp = result;
-  //     });
-  //   });
-  //   print(widget.defaultLamp.displayInfosLamp());
-  // }
 
   void selectColor(Color color) {
     // if (!widget.lamp.checkIfOn()) {
@@ -123,9 +103,63 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+  }
+
+  Lamp getLampFromAPI() {
+    Lamp defaultLampAPI = Lamp();
+    Lamp defaultLamp = Lamp();
+    lampService.getLampState(context).then((Lamp result) {
+      setState(() {
+        defaultLampAPI = result;
+
+        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
+        defaultLamp.randomMode = defaultLampAPI.randomMode;
+        defaultLamp.brightness = defaultLampAPI.brightness;
+        defaultLamp.color = defaultLampAPI.color;
+        defaultLamp.start = defaultLampAPI.start;
+
+        defaultLamp.consoleInfos();
+        widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
+        widget.infoLamp = displayLampInfos();
+      });
+    });
+    return defaultLamp;
+  }
+
+  Lamp requestAPI() {
+    Lamp defaultLampAPI = Lamp();
+    Lamp defaultLamp = Lamp();
+
+    lampService.updateStart(context, false);
+
+    lampService.getLampState(context).then((Lamp result) {
+      setState(() {
+        defaultLampAPI = result;
+
+        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
+        defaultLamp.randomMode = defaultLampAPI.randomMode;
+        defaultLamp.brightness = defaultLampAPI.brightness;
+        defaultLamp.color = defaultLampAPI.color;
+        defaultLamp.start = defaultLampAPI.start;
+
+        defaultLamp.consoleInfos();
+        widget.infoLamp = defaultLamp.displayInfosLampOnScreen(defaultLamp);
+      });
+    });
+    return defaultLamp;
+  }
+
   @override
   Widget build(BuildContext context) {
     //final myAppState = _MyAppState();
+    rebuildAllChildren(context);
     return Container(
       //backgroundColor: Colors.white,
       child: Column(
@@ -156,10 +190,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.white)),
                   RaisedButton(
                     onPressed: () {
-                      print("truc");
-                      //getHttp();
-                      print(widget.defaultLamp
-                          .displayInfosLampOnScreen(widget.defaultLamp));
+                      setState(() {
+                        print("truc");
+                        requestAPI();
+                      });
+
+                      // print(widget.defaultLamp
+                      //     .displayInfosLampOnScreen(widget.defaultLamp));
                     },
                     child: Text('TEST'),
                   ), // your button beneath text
@@ -219,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             flex: 1,
           ),
-          BrightnessCursor(            
+          BrightnessCursor(
               valueCursor: widget.defaultLamp.brightness.toDouble(),
               setBrightness: setBrightness),
           //  "  🎵" les switch button

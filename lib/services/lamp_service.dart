@@ -6,7 +6,7 @@ import 'package:lightcontrol/model/lamp.dart';
 class LampService {
   LampFactory lampFactory = LampFactory();
   Lamp defaultLampAPI = Lamp();
-  String nameTest = "";
+  String idLamp = "";
 
   Future<Lamp> getLampState(context) async {
     try {
@@ -15,6 +15,7 @@ class LampService {
       print(response);
       this.lampFactory = LampFactory.fromJson(response.data);
 
+      idLamp = lampFactory.id;
       defaultLampAPI.autoBrightness = lampFactory.autoBrightness;
       defaultLampAPI.randomMode = lampFactory.randomMode;
       defaultLampAPI.brightness = lampFactory.brightness;
@@ -44,4 +45,30 @@ class LampService {
           .showSnackBar(SnackBar(content: Text('Erreur reseau')));
     }
   }
+
+  Future<void> updateStart(context, bool start) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/powerOn',
+        data: {
+          "powerOn": start,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
+
+  
+
+//   Future<void> makePutRequest() async {
+//   final url = Uri.parse('$urlPrefix/posts/1');
+//   final headers = {"Content-type": "application/json"};
+//   final json = '{"title": "Hello", "body": "body text", "userId": 1}';
+//   final response = await put(url, headers: headers, body: json);
+//   print('Status code: ${response.statusCode}');
+//   print('Body: ${response.body}');
+// }
 }

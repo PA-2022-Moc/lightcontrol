@@ -7,6 +7,7 @@ part of 'lamp_factory.dart';
 // **************************************************************************
 
 LampFactory _$LampFactoryFromJson(Map<String, dynamic> json) => LampFactory()
+  ..id = json['id'] as String
   ..powerOn = json['powerOn'] as bool
   ..autoBrightness = json['autoBrightness'] as bool
   ..randomMode = json['randomMode'] as bool
@@ -15,6 +16,7 @@ LampFactory _$LampFactoryFromJson(Map<String, dynamic> json) => LampFactory()
 
 Map<String, dynamic> _$LampFactoryToJson(LampFactory instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'powerOn': instance.powerOn,
       'autoBrightness': instance.autoBrightness,
       'randomMode': instance.randomMode,

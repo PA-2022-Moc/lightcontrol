@@ -11,6 +11,7 @@ part 'lamp_factory.g.dart';
 class LampFactory {
   LampFactory();
 
+  String id = "";
   bool powerOn = true;
   bool autoBrightness = true;
   bool randomMode = true;
