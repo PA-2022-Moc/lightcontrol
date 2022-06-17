@@ -29,23 +29,13 @@ class _MyHomePageState extends State<MyHomePage> {
   // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
-  var colorHex = {
-    Colors.red: 'FF0000',
-    Colors.orange: 'FFC000',
-    Colors.yellow: 'FFFF00',
-    Colors.white: 'FFFFFF',
-    Colors.green: '00B050',
-    Colors.lightBlue: '00B0F0',
-    Colors.indigo.shade900: '002060',
-    Colors.purple: '7030A0',
-    Colors.pink.shade400: 'FD6C9E'
-  };
+  Lamp lamp = Lamp();
 
   void selectColor(Color color) {
     // if (!widget.lamp.checkIfOn()) {
     //   print('allumer la lampe avant de selectionner une couleur');
     // } else {
-    String colorSelected = colorHex[color]!;
+    String colorSelected = lamp.colorHex[color]!;
     widget.defaultLamp.changeColor(colorSelected);
     lampService.updateColor(context, colorSelected);
     //}
@@ -122,40 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 // padding: const EdgeInsets.all(0.8),
                 child: HorizontalCaroussel(
                     content: widget.infoLamp)), // getHttp widget.infoLamp
-          ),
-          Container(
-            color: Colors.red,
-            height: 100.0,
-            width: 414,
-            child: Center(
-              child: Column(
-                // add Column
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Welcome',
-                      style: TextStyle(
-                          // your text
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  RaisedButton(
-                    onPressed: () {
-                      String instruction = "start";
-                      setState(() {
-                        print("truc");
-                        print(valueCursor);
-
-                        //instructionToAPI(instruction);
-                      });
-
-                      // print(widget.defaultLamp
-                      //     .displayInfosLampOnScreen(widget.defaultLamp));
-                    },
-                    child: Text('TEST'),
-                  ), // your button beneath text
-                ],
-              ),
-            ),
           ),
           Expanded(
             // les color buttons

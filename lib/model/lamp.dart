@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:lightcontrol/services/lamp_service.dart';
 
 class Lamp {
@@ -8,6 +9,36 @@ class Lamp {
   bool randomMode = false;
   int brightness = 60;
   String color = "00B0F0";
+
+  var colorHex = {
+    Colors.red: 'FF0000',
+    Colors.orange: 'FFC000',
+    Colors.yellow: 'FFFF00',
+    Colors.white: 'FFFFFF',
+    Colors.green: '00B050',
+    Colors.lightBlue: '00B0F0',
+    Colors.indigo.shade900: '002060',
+    Colors.purple: '7030A0',
+    Colors.pink.shade400: 'FD6C9E'
+  };
+
+  var colorToString = {
+    'FF0000': 'Rouge',
+    'FFC000': "Orange",
+    'FFFF00': "Jaune",
+    'FFFFFF': "Blanc",
+    '00B050': "Vert",
+    '00B0F0': "Bleu clair",
+    '002060': "Bleu",
+    '7030A0': "Violet",
+    'FD6C9E': "Rose",
+  };
+
+  String test(String hex) {
+    String colorString;
+    colorString = colorToString[color]!;
+    return colorString;
+  }
 
   void consoleInfos() {
     print("      LAMPE CONSOLE INFOS \n");
@@ -61,8 +92,8 @@ class Lamp {
       line5 = "  Mode aleatoire activé        \n";
     }
 
-    String line6 = "  brightness à ${brightness}         \n";
-    String line7 = "  color à ${color}                            \n";
+    String line6 = "  Luminosité à ${brightness}%         \n";
+    String line7 = "  Couleur sélectionné ${test(color)}           \n";
 
     List<String> concatLinesWhenIsOff = [line1, line2, line3, line2];
     List<String> concatLines = [

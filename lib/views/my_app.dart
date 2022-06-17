@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void changeColorBackgout(Color newColorBackGround) {
+  void changeColorBackground(Color newColorBackGround) {
     colorBackground = newColorBackGround;
   }
 
