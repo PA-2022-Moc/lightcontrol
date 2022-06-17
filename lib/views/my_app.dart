@@ -16,9 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Color colorBackground = Colors.blue;
   static Lamp lamp = new Lamp();
-  //String concatLinesWhenIsOff = "LAMPE INFOS \n" + "||||||||||||||||||||||||||||||||||||||||||||\n" + "  Eteint                             \n";
 
   String infoLamp = "LAMPE INFOS \n" +
       "||||||||||||||||||||||||||||||||||||||||||||\n" +
@@ -28,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
   late String statePowerIMG = 'images/power-w.jpeg';
+  late Color colorBackground = initColorAppWithAPI('FFFFFF');
 
   Lamp getLampFromAPI() {
     Lamp defaultLampAPI = Lamp();
@@ -44,6 +43,7 @@ class _MyAppState extends State<MyApp> {
 
         defaultLamp.consoleInfos();
         infoLamp = defaultLamp.displayInfosLampOnScreen();
+        colorBackground = initColorAppWithAPI(defaultLamp.color);
 
         if (defaultLamp.start == true) {
           statePowerIMG = 'images/power-on.jpeg';
@@ -58,6 +58,14 @@ class _MyAppState extends State<MyApp> {
 
   late Lamp retrieveLamp = getLampFromAPI();
 
+  Color initColorAppWithAPI(String colorHEX) {
+    var colorKey = lamp.colorHex.keys.firstWhere(
+        (k) => lamp.colorHex[k] == colorHEX,
+        orElse: () => Colors.white);
+    print(" ici le test ${colorHEX} ");
+    return colorKey;
+  }
+
   void changeStatePower(retrieveLamp) {
     bool lampPowerOnOff;
     setState(() {
@@ -68,17 +76,19 @@ class _MyAppState extends State<MyApp> {
       }
       lampPowerOnOff = lamp.switchOnOff();
       lampService.updateStart(context, lampPowerOnOff);
-      infoLamp = lamp.displayInfosLampOnScreen();
-
-      //lamp.infos();
     });
   }
 
-  void changeColorBackground(Color newColorBackGround) {
-    colorBackground = newColorBackGround;
+  void changeColorBackgroundWithColorSelection(
+      Lamp lampColor, Color newColorBackGround) {
+    setState(() {
+      colorBackground = newColorBackGround;
+      infoLamp = lampColor.displayInfosLampOnScreen();
+      print("on passe a ${colorBackground}");
+    });
   }
 
-  String defaultDisplayStart() {
+  String defaultDisplayStartButton() {
     retrieveLamp = getLampFromAPI();
     String IMG;
     if (retrieveLamp.start == true) {
@@ -100,6 +110,8 @@ class _MyAppState extends State<MyApp> {
           infoLamp: infoLamp,
           defaultLamp: retrieveLamp,
           newLamp: lamp,
+          changeColorAppBarWithColorSelection:
+              changeColorBackgroundWithColorSelection,
         ),
         backgroundColor: Colors.white,
         appBar: PreferredSize(

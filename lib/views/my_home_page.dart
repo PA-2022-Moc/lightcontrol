@@ -14,11 +14,13 @@ class MyHomePage extends StatefulWidget {
   String infoLamp;
   Lamp defaultLamp;
   Lamp newLamp;
+  Function changeColorAppBarWithColorSelection;
   MyHomePage({
     Key? key,
     required this.infoLamp,
     required this.defaultLamp,
     required this.newLamp,
+    required this.changeColorAppBarWithColorSelection,
   }) : super(key: key);
 
   @override
@@ -32,14 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Lamp lamp = Lamp();
 
   void selectColor(Color color) {
-    // if (!widget.lamp.checkIfOn()) {
-    //   print('allumer la lampe avant de selectionner une couleur');
-    // } else {
     String colorSelected = lamp.colorHex[color]!;
     widget.defaultLamp.changeColor(colorSelected);
     lampService.updateColor(context, colorSelected);
-    //}
-    //lamp.infos();
+    widget.changeColorAppBarWithColorSelection(widget.defaultLamp, color);
   }
 
   void switchAutoBrightness(bool switchMode) {
@@ -64,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void setColor(Color color) {
     setState(() {
       selectColor(color);
-      widget.infoLamp = displayLampInfos();
     });
   }
 
