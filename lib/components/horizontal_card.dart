@@ -46,7 +46,7 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
         "${content}",
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 17,
           height: 1.5,
         ),
       );

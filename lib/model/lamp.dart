@@ -7,6 +7,7 @@ class Lamp {
   bool start = true;
   bool autoBrightness = false;
   bool randomMode = false;
+  bool partyMode = false;
   int brightness = 60;
   String color = "00B0F0";
 
@@ -70,10 +71,11 @@ class Lamp {
     String line3;
     String line4;
     String line5;
+    String line5_2;
     String concatLine;
 
     String line1 = "LAMPE INFOS \n";
-    String line2 = "||||||||||||||||||||||||||||||||||||||||||||\n";
+    String line2 = "____________________________________\n";
     if (start == false) {
       line3 = "  Eteint                             \n";
     } else {
@@ -92,6 +94,12 @@ class Lamp {
       line5 = "  Mode aleatoire activé        \n";
     }
 
+    if (partyMode == false) {
+      line5_2 = "  Mode party désactivé  \n";
+    } else {
+      line5_2 = "  Mode party activé        \n";
+    }
+
     String line6 = "  Luminosité à ${brightness}%         \n";
     String line7 = "  Couleur sélectionné ${test(color)}           \n";
 
@@ -102,6 +110,7 @@ class Lamp {
       line3,
       line4,
       line5,
+      line5_2,
       line6,
       line7,
       line2
@@ -152,6 +161,10 @@ class Lamp {
     //   music = false;
     // }
     randomMode = switchMode;
+  }
+
+  void switchPartyMode(bool switchMode) {
+    partyMode = switchMode;
   }
 
   void changeBrightness(int cursor) {

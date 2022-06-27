@@ -50,6 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
     lampService.updateRandomMode(context, switchMode);
   }
 
+  void switchPartyMod(bool switchMode) {
+    widget.defaultLamp.switchPartyMode(switchMode);
+    //lampService.updateRandomMode(context, switchMode);
+  }
+
   void changeBrightnessWithSlider(int curserValue) {
     widget.defaultLamp.changeBrightness(curserValue);
     lampService.updateBrightness(context, curserValue);
@@ -90,8 +95,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void setSwitchPartyMod(bool val) {
+    setState(() {
+      isSwitchedPartyMode = val;
+      switchPartyMod(isSwitchedPartyMode);
+      widget.infoLamp = displayLampInfos();
+    });
+  }
+
   late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
   late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
+  late bool isSwitchedPartyMode = widget.defaultLamp.partyMode;
   late double valueCursor = 35; //widget.defaultLamp.brightness.toDouble();
 
   @override
@@ -184,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     activeText: "  🔀",
                     isSwitched: widget.defaultLamp.randomMode,
                     setSwitch: setSwitchRandomMode,
-                    topText: "Random Mode",
+                    topText: "Random Mod",
                   )
                 ],
               ),
@@ -192,16 +206,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: Container(
-              child: Row(children: [
-                Container(
-                  height: 200.0,
-                  width: 207.0,
-                  color: Colors.white,
-                ),
-                Container(
-                  height: 200.0,
-                  width: 207.0,
-                  color: Colors.white,
+              child: Row(children: <Widget>[
+                SwitchButton(
+                  activeText: "  🎉",
+                  isSwitched: widget.defaultLamp.partyMode,
+                  setSwitch: setSwitchPartyMod,
+                  topText: 'Party Mod', //
                 ),
               ]),
             ),
