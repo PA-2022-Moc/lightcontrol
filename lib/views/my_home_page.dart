@@ -47,12 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void switchRandomMode(bool switchMode) {
     widget.defaultLamp.switchRandomMode(switchMode);
-    lampService.updateRandomMode(context, switchMode);
+    //lampService.updateRandomMode(context, switchMode);
   }
 
   void switchPartyMod(bool switchMode) {
     widget.defaultLamp.switchPartyMode(switchMode);
-    //lampService.updateRandomMode(context, switchMode);
+    lampService.updatePartyMode(context, switchMode);
   }
 
   void changeBrightnessWithSlider(int curserValue) {

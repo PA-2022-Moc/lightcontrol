@@ -91,7 +91,7 @@ class LampService {
     }
   }
 
-  Future<void> updateRandomMode(context, bool isRandomMode) async {
+  Future<void> updatePartyMode(context, bool isRandomMode) async {
     try {
       Response response = await Dio().put(
         'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/randomMode',
