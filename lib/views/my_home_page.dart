@@ -31,7 +31,15 @@ class _MyHomePageState extends State<MyHomePage> {
   // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
+  Lamp getLamp = Lamp();
   Lamp lamp = Lamp();
+
+  void getTheLampAPI() async {
+    getLamp = await lampService.getLampState(context);
+    
+    print("la lampe récupéré :");
+    print(getLamp.color);
+  }
 
   void selectColor(Color color) {
     String colorSelected = lamp.colorHex[color]!;
@@ -79,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void setSwitchAutoBrightnes(bool val) {
+  void setSwitchAutoBrightness(bool val) {
     setState(() {
       isSwitchedAutoBrightness = val;
       switchAutoBrightness(isSwitchedAutoBrightness);
@@ -89,6 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setSwitchRandomMode(bool val) {
     setState(() {
+      print("setSwitchRandomMode");
+      getTheLampAPI();
       isSwitchedRandomMode = val;
       switchRandomMode(isSwitchedRandomMode);
       widget.infoLamp = displayLampInfos();
@@ -97,6 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setSwitchPartyMod(bool val) {
     setState(() {
+      print("setSwitchPartyMod");
+      getTheLampAPI();
       isSwitchedPartyMode = val;
       switchPartyMod(isSwitchedPartyMode);
       widget.infoLamp = displayLampInfos();
@@ -189,10 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: <Widget>[
                   SwitchButton(
-                    activeText: "  💡",
-                    isSwitched: widget.defaultLamp.autoBrightness,
-                    setSwitch: setSwitchAutoBrightnes,
-                    topText: 'Auto Brightness', //
+                    activeText: "  🎉",
+                    isSwitched: widget.defaultLamp.partyMode,
+                    setSwitch: setSwitchPartyMod,
+                    topText: 'Party Mod',
                   ),
                   SwitchButton(
                     activeText: "  🔀",
@@ -208,10 +220,10 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Container(
               child: Row(children: <Widget>[
                 SwitchButton(
-                  activeText: "  🎉",
-                  isSwitched: widget.defaultLamp.partyMode,
-                  setSwitch: setSwitchPartyMod,
-                  topText: 'Party Mod', //
+                  activeText: "  💡",
+                  isSwitched: widget.defaultLamp.autoBrightness,
+                  setSwitch: setSwitchAutoBrightness,
+                  topText: 'Auto Brightness', //
                 ),
               ]),
             ),

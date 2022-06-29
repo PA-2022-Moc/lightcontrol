@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
 
         defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
         defaultLamp.randomMode = defaultLampAPI.randomMode;
+        defaultLamp.partyMode = defaultLampAPI.partyMode;
         defaultLamp.brightness = defaultLampAPI.brightness;
         defaultLamp.color = defaultLampAPI.color;
         defaultLamp.start = defaultLampAPI.start;

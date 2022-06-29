@@ -15,6 +15,7 @@ class LampFactory {
   bool powerOn = true;
   bool autoBrightness = true;
   bool randomMode = true;
+  bool partyMode = true;
   int brightness = 100;
   String color = "FFFFFC";
 

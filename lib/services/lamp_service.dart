@@ -17,6 +17,7 @@ class LampService {
 
       idLamp = lampFactory.id;
       defaultLampAPI.autoBrightness = lampFactory.autoBrightness;
+      defaultLampAPI.partyMode = lampFactory.partyMode;
       defaultLampAPI.randomMode = lampFactory.randomMode;
       defaultLampAPI.brightness = lampFactory.brightness;
       defaultLampAPI.color = lampFactory.color;
@@ -91,7 +92,22 @@ class LampService {
     }
   }
 
-  Future<void> updatePartyMode(context, bool isRandomMode) async {
+  Future<void> updatePartyMode(context, bool isPartyMode) async {
+    try {
+      Response response = await Dio().put(
+        'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/partyMode',
+        data: {
+          "partyMode": isPartyMode,
+        },
+      );
+
+      print('lamp updated: ${response.data}');
+    } catch (e) {
+      print('Error updating lamp: $e');
+    }
+  }
+
+  Future<void> updateRandomMode(context, bool isRandomMode) async {
     try {
       Response response = await Dio().put(
         'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701/randomMode',
