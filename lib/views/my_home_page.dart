@@ -41,24 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
     print(getLamp.color);
   }
 
-  Future<bool> getTheLampRamdomModAPI() async {
+  Future<int> getTheLampRamdomModAPI() async {
     getLamp = await lampService.getLampState(context);
 
-    print("random mod récupéré :");
-    print(getLamp.randomMode);
-    if (getLamp.partyMode == true) {
-      setSwitchRandomMode(false);
-    }
-    return getLamp.randomMode;
-  }
-
-  Future<bool> getTheLampPartyModAPI() async {
-    getLamp = await lampService.getLampState(context);
-
-    print("party mod récupéré :");
-    print(getLamp.partyMode);
-
-    return getLamp.partyMode;
+    print("bightness récupéré :");
+    print(getLamp.brightness);
+    return getLamp.brightness;
   }
 
   void selectColor(Color color) {
@@ -117,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setSwitchRandomMode(bool val) {
     setState(() {
-      print("setSwitchRandomMode");
       if (widget.defaultLamp.partyMode == true) {
         setSwitchPartyMod(false);
       }
@@ -129,7 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setSwitchPartyMod(bool val) {
     setState(() {
-      print("setSwitchPartyMod");
       if (widget.defaultLamp.randomMode == true) {
         setSwitchRandomMode(false);
       }
