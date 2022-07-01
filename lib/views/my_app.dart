@@ -75,7 +75,8 @@ class _MyAppState extends State<MyApp> {
       } else {
         statePowerIMG = 'images/power-off.jpeg';
       }
-      lampPowerOnOff = lamp.switchOnOff();
+      lampPowerOnOff = retrieveLamp.switchOnOff();
+      infoLamp = retrieveLamp.displayInfosLampOnScreen();
       lampService.updateStart(context, lampPowerOnOff);
     });
   }

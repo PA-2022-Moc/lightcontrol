@@ -123,7 +123,6 @@ class Lamp {
       concatLine = concatLines.join();
       print(concatLines);
     }
-    //print("qdqdqzdqdqdz");
     return concatLine;
   }
 
