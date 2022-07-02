@@ -14,12 +14,14 @@ class MyHomePage extends StatefulWidget {
   String infoLamp;
   Lamp defaultLamp;
   Lamp newLamp;
+  double cursorValue;
   Function changeColorAppBarWithColorSelection;
   MyHomePage({
     Key? key,
     required this.infoLamp,
     required this.defaultLamp,
     required this.newLamp,
+    required this.cursorValue,
     required this.changeColorAppBarWithColorSelection,
   }) : super(key: key);
 
@@ -28,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // 50,0
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
   Lamp getLamp = Lamp();
@@ -48,14 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
     print(getLamp.brightness);
     return getLamp.brightness.toDouble();
   }
-
-  // Future<double> changeLampBrightnessToDouble() async {
-  //   getLamp = await lampService.getLampState(context);
-
-  //   print("bightness récupéré :");
-  //   print(getLamp.brightness);
-  //   return getLamp.brightness;
-  // }
 
   void selectColor(Color color) {
     String colorSelected = lamp.colorHex[color]!;
@@ -96,8 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void setBrightness(dynamic value) {
     setState(() {
-      valueCursor = value;
-      int valueInt = valueCursor.toInt();
+      widget.cursorValue = value;
+      int valueInt = widget.cursorValue.toInt();
       changeBrightnessWithSlider(valueInt);
       widget.infoLamp = displayLampInfos();
     });
@@ -147,7 +140,6 @@ class _MyHomePageState extends State<MyHomePage> {
   late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
   late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
   late bool isSwitchedPartyMode = widget.defaultLamp.partyMode;
-  late double valueCursor = 30; //35
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +155,6 @@ class _MyHomePageState extends State<MyHomePage> {
               widthFactor: 2.0,
               child: Container(
                   height: 250,
-                  // margin: const EdgeInsets.only(top: 0.8),
-                  // padding: const EdgeInsets.all(0.8),
                   child: HorizontalCaroussel(
                       content: widget.infoLamp)), // getHttp widget.infoLamp
             ),
@@ -222,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 1,
             ),
             BrightnessCursor(
-              valueCursor: valueCursor,
+              valueCursor: widget.cursorValue,
               setBrightness: setBrightness,
             ),
             //TEST

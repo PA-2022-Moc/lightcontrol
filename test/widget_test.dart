@@ -32,7 +32,7 @@ void main() {
 // AbsorbPointer(
 //               absorbing: true,
 //               child: Container(
-//                 // container TEST a coller ligne 116 de my_home8page si on veut tester des fonctionalités
+//                 // container TEST a coller ligne 229 de my_home8page si on veut tester des fonctionalités
 //                 color: Colors.red,
 //                 height: 80.0,
 //                 width: 414,

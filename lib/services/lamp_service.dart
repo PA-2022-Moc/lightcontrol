@@ -136,15 +136,4 @@ class LampService {
       print('Error updating lamp: $e');
     }
   }
-
-  
-
-//   Future<void> makePutRequest() async {
-//   final url = Uri.parse('$urlPrefix/posts/1');
-//   final headers = {"Content-type": "application/json"};
-//   final json = '{"title": "Hello", "body": "body text", "userId": 1}';
-//   final response = await put(url, headers: headers, body: json);
-//   print('Status code: ${response.statusCode}');
-//   print('Body: ${response.body}');
-// }
 }

@@ -11,7 +11,6 @@ class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
-    //You missed initialization part of state object.
   }
 }
 
@@ -45,7 +44,6 @@ class _MyAppState extends State<MyApp> {
         defaultLamp.consoleInfos();
         infoLamp = defaultLamp.displayInfosLampOnScreen();
         colorBackground = initColorAppWithAPI(defaultLamp.color);
-        print(" ici le brightness ${defaultLampAPI.brightness.toDouble()} ");
 
         if (defaultLamp.start == true) {
           statePowerIMG = 'images/power-on.jpeg';
@@ -54,23 +52,17 @@ class _MyAppState extends State<MyApp> {
         }
       });
     });
-    
+
     return defaultLamp;
   }
 
   late Lamp retrieveLamp = getLampFromAPI();
 
   Color initColorAppWithAPI(String colorHEX) {
-    // var colorKey;
-    // if (retrieveLamp.start == true) {
     var colorKey = retrieveLamp.colorHex.keys.firstWhere(
         (k) => retrieveLamp.colorHex[k] == colorHEX,
         orElse: () => Colors.white);
-    print(" ici le test ${colorHEX} ");
     return colorKey;
-    // } else {
-    //   colorKey = Colors.grey;
-    // }
   }
 
   void changeStatePower(retrieveLamp) {
@@ -115,6 +107,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: MyHomePage(
+          cursorValue: defaultLampAPI.brightness.toDouble(),
           infoLamp: infoLamp,
           defaultLamp: retrieveLamp,
           newLamp: lamp,
