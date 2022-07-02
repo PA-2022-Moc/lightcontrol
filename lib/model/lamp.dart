@@ -8,7 +8,7 @@ class Lamp {
   bool autoBrightness = false;
   bool randomMode = false;
   bool partyMode = false;
-  int brightness = 60;
+  int brightness = 10;
   String color = "00B0F0";
 
   var colorHex = {

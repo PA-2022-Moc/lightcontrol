@@ -29,37 +29,41 @@ void main() {
 }
 
 
-// Container( // container TEST a coller ligne 116 de my_home8page si on veut tester des fonctionalités 
-          //   color: Colors.red,
-          //   height: 100.0,
-          //   width: 414,
-          //   child: Center(
-          //     child: Column(
-          //       // add Column
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: <Widget>[
-          //         Text('Welcome',
-          //             style: TextStyle(
-          //                 // your text
-          //                 fontSize: 10.0,
-          //                 fontWeight: FontWeight.bold,
-          //                 color: Colors.white)),
-          //         RaisedButton(
-          //           onPressed: () {
-          //             String instruction = "start";
-          //             setState(() {
-          //               print("truc");
-          //               print(valueCursor);
+// AbsorbPointer(
+//               absorbing: true,
+//               child: Container(
+//                 // container TEST a coller ligne 116 de my_home8page si on veut tester des fonctionalités
+//                 color: Colors.red,
+//                 height: 80.0,
+//                 width: 414,
+//                 child: Center(
+//                   child: Column(
+//                     // add Column
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Text('Welcome',
+//                           style: TextStyle(
+//                               // your text
+//                               fontSize: 10.0,
+//                               fontWeight: FontWeight.bold,
+//                               color: Colors.white)),
+//                       RaisedButton(
+//                         onPressed: () {
+//                           String instruction = "start";
+//                           setState(() {
+//                             print("truc");
+//                             print(valueCursor);
 
-          //               //instructionToAPI(instruction);
-          //             });
+//                             //instructionToAPI(instruction);
+//                           });
 
-          //             // print(widget.defaultLamp
-          //             //     .displayInfosLampOnScreen(widget.defaultLamp));
-          //           },
-          //           child: Text('TEST'),
-          //         ), // your button beneath text
-          //       ],
-          //     ),
-          //   ),
-          // ),
+//                           // print(widget.defaultLamp
+//                           //     .displayInfosLampOnScreen(widget.defaultLamp));
+//                         },
+//                         child: Text('TEST'),
+//                       ), // your button beneath text
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),

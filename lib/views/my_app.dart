@@ -27,10 +27,10 @@ class _MyAppState extends State<MyApp> {
   LampService lampService = LampService();
   late String statePowerIMG = 'images/power-w.jpeg';
   late Color colorBackground = initColorAppWithAPI('FFFFFF');
+  Lamp defaultLampAPI = Lamp();
+  Lamp defaultLamp = Lamp();
 
   Lamp getLampFromAPI() {
-    Lamp defaultLampAPI = Lamp();
-    Lamp defaultLamp = Lamp();
     lampService.getLampState(context).then((Lamp result) {
       setState(() {
         defaultLampAPI = result;
@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         defaultLamp.consoleInfos();
         infoLamp = defaultLamp.displayInfosLampOnScreen();
         colorBackground = initColorAppWithAPI(defaultLamp.color);
+        print(" ici le brightness ${defaultLampAPI.brightness.toDouble()} ");
 
         if (defaultLamp.start == true) {
           statePowerIMG = 'images/power-on.jpeg';
@@ -53,18 +54,23 @@ class _MyAppState extends State<MyApp> {
         }
       });
     });
-
+    
     return defaultLamp;
   }
 
   late Lamp retrieveLamp = getLampFromAPI();
 
   Color initColorAppWithAPI(String colorHEX) {
-    var colorKey = lamp.colorHex.keys.firstWhere(
-        (k) => lamp.colorHex[k] == colorHEX,
+    // var colorKey;
+    // if (retrieveLamp.start == true) {
+    var colorKey = retrieveLamp.colorHex.keys.firstWhere(
+        (k) => retrieveLamp.colorHex[k] == colorHEX,
         orElse: () => Colors.white);
     print(" ici le test ${colorHEX} ");
     return colorKey;
+    // } else {
+    //   colorKey = Colors.grey;
+    // }
   }
 
   void changeStatePower(retrieveLamp) {
