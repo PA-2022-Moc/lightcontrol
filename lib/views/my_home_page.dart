@@ -84,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void setColor(Color color) {
     setState(() {
       selectColor(color);
+      print(" le brightness après changement de coueleur : $widget.cursorValue");
     });
   }
 

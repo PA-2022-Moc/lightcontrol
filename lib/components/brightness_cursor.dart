@@ -28,7 +28,7 @@ class _BrightnessCursorState extends State<BrightnessCursor> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 10.0),
-                    Text("🔅                                    Brightness                                   🔆"),
+                    Text("🔅                                Brightness                               🔆"),
                     SizedBox(height: 1.0),
                     SfSlider(
                       activeColor: Colors.yellow.shade600,
