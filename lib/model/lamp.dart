@@ -13,10 +13,10 @@ class Lamp {
 
   var colorHex = {
     Colors.red: 'FF0000',
-    Colors.orange: 'FFC000',
+    Colors.orange: 'FF8C00',
     Colors.yellow: 'FFFF00',
     Colors.white: 'FFFFFF',
-    Colors.green: '00B050',
+    Colors.green: '008000',
     Colors.lightBlue: '00B0F0',
     Colors.indigo.shade900: '002060',
     Colors.purple: '7030A0',
@@ -25,10 +25,10 @@ class Lamp {
 
   var colorToString = {
     'FF0000': 'Rouge',
-    'FFC000': "Orange",
+    'FF8C00': "Orange",
     'FFFF00': "Jaune",
     'FFFFFF': "Blanc",
-    '00B050': "Vert",
+    '008000': "Vert",
     '00B0F0': "Bleu clair",
     '002060': "Bleu",
     '7030A0': "Violet",
