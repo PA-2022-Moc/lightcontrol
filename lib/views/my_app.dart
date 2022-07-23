@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lightcontrol/factory/lamp_factory.dart';
 import 'package:lightcontrol/model/lamp.dart';
+import 'package:lightcontrol/views/countdown-page.dart';
 import 'package:lightcontrol/views/my_home_page.dart';
 import 'package:lightcontrol/services/lamp_service.dart';
 import 'package:lightcontrol/model/lamp.dart';
+import 'package:lightcontrol/views/testViewAdd.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,6 +30,9 @@ class _MyAppState extends State<MyApp> {
   late Color colorBackground = initColorAppWithAPI('FFFFFF');
   Lamp defaultLampAPI = Lamp();
   Lamp defaultLamp = Lamp();
+
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
+  NavigatorState? get _navigator => _navigatorKey.currentState;
 
   Lamp getLampFromAPI() {
     lampService.getLampState(context).then((Lamp result) {
@@ -101,10 +106,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Future openDialog() => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Planifier un Arrêt'),
+            content: CountdownPage(),
+          ),
+        );
     return MaterialApp(
       // toute l'app
       title: 'Flutter light control',
       debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey,
       home: Scaffold(
         body: MyHomePage(
           cursorValue: defaultLampAPI.brightness.toDouble(),
@@ -132,13 +145,21 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             actions: [
-                IconButton(
-                  padding: EdgeInsets.only(right : 10.0),
-                    icon: const Icon(Icons.timer,size: 40.0),
-                    onPressed: () {
-                      print("object timer");
-                    }),
+              IconButton(
+                  padding: EdgeInsets.only(right: 10.0),
+                  icon: const Icon(Icons.timer, size: 45.0),
+                  onPressed: () {
+                    print("okay time");
+                    _navigator?.push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CountdownPage();
+                        },
               
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  }),
             ],
           ),
         ), // toute la page
