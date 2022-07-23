@@ -12,14 +12,14 @@ import '../Message/DioExceptions.dart';
 
 class MyHomePage extends StatefulWidget {
   String infoLamp;
-  Lamp defaultLamp;
+  Lamp? defaultLamp;
   Lamp newLamp;
   double cursorValue;
   Function changeColorAppBarWithColorSelection;
   MyHomePage({
     Key? key,
+    this.defaultLamp,
     required this.infoLamp,
-    required this.defaultLamp,
     required this.newLamp,
     required this.cursorValue,
     required this.changeColorAppBarWithColorSelection,
@@ -32,59 +32,61 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
-  Lamp getLamp = Lamp();
+  Lamp? getLamp = Lamp();
   Lamp lamp = Lamp();
+  bool tructesttrue = true;
 
   void getTheLampAPI() async {
     getLamp = await lampService.getLampState(context);
 
     print("la lampe récupéré :");
-    print(getLamp.color);
+    print(getLamp!.color);
   }
 
   Future<double> getTheLampRamdomModAPI() async {
     getLamp = await lampService.getLampState(context);
 
     print("bightness récupéré :");
-    print(getLamp.brightness);
-    return getLamp.brightness.toDouble();
+    print(getLamp!.brightness);
+    return getLamp!.brightness.toDouble();
   }
 
   void selectColor(Color color) {
     String colorSelected = lamp.colorHex[color]!;
-    widget.defaultLamp.changeColor(colorSelected);
+    widget.defaultLamp?.changeColor(colorSelected);
     lampService.updateColor(context, colorSelected);
     widget.changeColorAppBarWithColorSelection(widget.defaultLamp, color);
   }
 
   void switchAutoBrightness(bool switchMode) {
-    widget.defaultLamp.switchAutoBrightness(switchMode);
+    widget.defaultLamp?.switchAutoBrightness(switchMode);
     lampService.updateAutoBrightness(context, switchMode);
   }
 
   void switchRandomMode(bool switchMode) {
-    widget.defaultLamp.switchRandomMode(switchMode);
+    widget.defaultLamp?.switchRandomMode(switchMode);
     lampService.updateRandomMode(context, switchMode);
   }
 
   void switchPartyMod(bool switchMode) {
-    widget.defaultLamp.switchPartyMode(switchMode);
+    widget.defaultLamp?.switchPartyMode(switchMode);
     lampService.updatePartyMode(context, switchMode);
   }
 
   void changeBrightnessWithSlider(int curserValue) {
-    widget.defaultLamp.changeBrightness(curserValue);
+    widget.defaultLamp?.changeBrightness(curserValue);
     lampService.updateBrightness(context, curserValue);
   }
 
-  String displayLampInfos() {
-    return widget.defaultLamp.displayInfosLampOnScreen();
+  String? displayLampInfos() {
+    return widget.defaultLamp?.displayInfosLampOnScreen();
   }
 
   void setColor(Color color) {
     setState(() {
       selectColor(color);
-      print(" le brightness après changement de coueleur : $widget.cursorValue");
+      print(
+          " le brightness après changement de coueleur : $widget.cursorValue");
     });
   }
 
@@ -93,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       widget.cursorValue = value;
       int valueInt = widget.cursorValue.toInt();
       changeBrightnessWithSlider(valueInt);
-      widget.infoLamp = displayLampInfos();
+      widget.infoLamp = displayLampInfos()!;
     });
   }
 
@@ -101,35 +103,35 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       isSwitchedAutoBrightness = val;
       switchAutoBrightness(isSwitchedAutoBrightness);
-      widget.infoLamp = displayLampInfos();
+      widget.infoLamp = displayLampInfos()!;
     });
   }
 
   void setSwitchRandomMode(bool val) {
     setState(() {
-      if (widget.defaultLamp.partyMode == true) {
+      if (widget.defaultLamp?.partyMode == true) {
         setSwitchPartyMod(false);
       }
       isSwitchedRandomMode = val;
       switchRandomMode(isSwitchedRandomMode);
-      widget.infoLamp = displayLampInfos();
+      widget.infoLamp = displayLampInfos()!;
     });
   }
 
   void setSwitchPartyMod(bool val) {
     setState(() {
-      if (widget.defaultLamp.randomMode == true) {
+      if (widget.defaultLamp?.randomMode == true) {
         setSwitchRandomMode(false);
       }
       isSwitchedPartyMode = val;
       switchPartyMod(isSwitchedPartyMode);
-      widget.infoLamp = displayLampInfos();
+      widget.infoLamp = displayLampInfos()!;
     });
   }
 
   bool isAbsorbingWithStart() {
     bool isAsorbing;
-    if (widget.defaultLamp.start == true) {
+    if (widget.defaultLamp?.start == true) {
       isAsorbing = false;
       return isAsorbing;
     } else {
@@ -138,13 +140,35 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  late bool isSwitchedAutoBrightness = widget.defaultLamp.autoBrightness;
-  late bool isSwitchedRandomMode = widget.defaultLamp.randomMode;
-  late bool isSwitchedPartyMode = widget.defaultLamp.partyMode;
+  late bool isSwitchedAutoBrightness = widget.defaultLamp!.autoBrightness;
+  late bool isSwitchedRandomMode = widget.defaultLamp!.randomMode;
+  late bool isSwitchedPartyMode = widget.defaultLamp!.partyMode;
 
   @override
   Widget build(BuildContext context) {
+    //print("ici la lamp $widget.defaultLamp");
+    Future openDialogErrorLamp(BuildContext context) => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Erreur'),
+            content: Center(
+                child: Text(
+                    "Un problème est survenue redémarrez votre application et assurez vous que votre Lampe soit bien sous tension")),
+          ),
+        );
+    if (widget.defaultLamp == null) {
+      print("ici la lamp $widget.defaultLamp");
+      return AlertDialog(
+        title: const Text('Erreur'),
+        content: Center(
+            child: Text(
+                "Un problème est survenue redémarrez votre application et assurez vous que votre Lamp soit alimenté")),
+      );
+    }
     //final myAppState = _MyAppState();
+    // if (tructesttrue == true) {
+    //   openDialogErrorLamp(context);
+    // } else {}
     return AbsorbPointer(
       absorbing: isAbsorbingWithStart(), // les color buttons
       child: Container(
@@ -225,13 +249,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     SwitchButton(
                       activeText: "  🎉",
-                      isSwitched: widget.defaultLamp.partyMode,
+                      isSwitched: widget.defaultLamp!.partyMode,
                       setSwitch: setSwitchPartyMod,
                       topText: 'Party Mod',
                     ),
                     SwitchButton(
                       activeText: "  🔀",
-                      isSwitched: widget.defaultLamp.randomMode,
+                      isSwitched: widget.defaultLamp!.randomMode,
                       setSwitch: setSwitchRandomMode,
                       topText: "Random Mod",
                     )
@@ -244,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(children: <Widget>[
                   SwitchButton(
                     activeText: "  💡",
-                    isSwitched: widget.defaultLamp.autoBrightness,
+                    isSwitched: widget.defaultLamp!.autoBrightness,
                     setSwitch: setSwitchAutoBrightness,
                     topText: 'Auto Brightness', //
                   ),

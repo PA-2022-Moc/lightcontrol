@@ -25,30 +25,36 @@ class _MyAppState extends State<MyApp> {
   LampFactory lampFactoryTest = LampFactory();
   LampService lampService = LampService();
   late String statePowerIMG = 'images/power-w.jpeg';
-  late Color colorBackground = initColorAppWithAPI('FFFFFF');
-  Lamp defaultLampAPI = Lamp();
-  Lamp defaultLamp = Lamp();
+  late Color? colorBackground = initColorAppWithAPI('FFFFFF');
+  Lamp? defaultLampAPI = Lamp();
+  Lamp? defaultLamp;
 
-  Lamp getLampFromAPI() {
-    lampService.getLampState(context).then((Lamp result) {
+  Lamp? getLampFromAPI() {
+    lampService.getLampState(context).then((Lamp? result) {
       setState(() {
-        defaultLampAPI = result;
+        if (result != null) {
+          defaultLampAPI = result;
 
-        defaultLamp.autoBrightness = defaultLampAPI.autoBrightness;
-        defaultLamp.randomMode = defaultLampAPI.randomMode;
-        defaultLamp.partyMode = defaultLampAPI.partyMode;
-        defaultLamp.brightness = defaultLampAPI.brightness;
-        defaultLamp.color = defaultLampAPI.color;
-        defaultLamp.start = defaultLampAPI.start;
+          defaultLamp?.autoBrightness = defaultLampAPI!.autoBrightness;
+          defaultLamp?.randomMode = defaultLampAPI!.randomMode;
+          defaultLamp?.partyMode = defaultLampAPI!.partyMode;
+          defaultLamp?.brightness = defaultLampAPI!.brightness;
+          defaultLamp?.color = defaultLampAPI!.color;
+          defaultLamp?.start = defaultLampAPI!.start;
 
-        defaultLamp.consoleInfos();
-        infoLamp = defaultLamp.displayInfosLampOnScreen();
-        colorBackground = initColorAppWithAPI(defaultLamp.color);
+          defaultLamp?.consoleInfos();
+          infoLamp = "truc";  //defaultLamp!.displayInfosLampOnScreen();
+          colorBackground = initColorAppWithAPI(defaultLamp?.color);
 
-        if (defaultLamp.start == true) {
-          statePowerIMG = 'images/power-on.jpeg';
+          if (defaultLamp!.start == true) {
+            statePowerIMG = 'images/power-on.jpeg';
+          } else {
+            statePowerIMG = 'images/power-off.jpeg';
+          }
         } else {
-          statePowerIMG = 'images/power-off.jpeg';
+          print("lamp null bugué");
+          return null;
+          //openDialogErrorLamp(context);
         }
       });
     });
@@ -56,11 +62,11 @@ class _MyAppState extends State<MyApp> {
     return defaultLamp;
   }
 
-  late Lamp retrieveLamp = getLampFromAPI();
+  late Lamp? retrieveLamp = getLampFromAPI();
 
-  Color initColorAppWithAPI(String colorHEX) {
-    var colorKey = retrieveLamp.colorHex.keys.firstWhere(
-        (k) => retrieveLamp.colorHex[k] == colorHEX,
+  Color? initColorAppWithAPI(String? colorHEX) {
+    var colorKey = retrieveLamp?.colorHex.keys.firstWhere(
+        (k) => retrieveLamp!.colorHex[k] == colorHEX,
         orElse: () => Colors.white);
     return colorKey;
   }
@@ -91,7 +97,7 @@ class _MyAppState extends State<MyApp> {
   String defaultDisplayStartButton() {
     retrieveLamp = getLampFromAPI();
     String IMG;
-    if (retrieveLamp.start == true) {
+    if (retrieveLamp!.start == true) {
       IMG = 'images/power-on.jpeg';
     } else {
       IMG = 'images/power-off.jpeg';
@@ -107,7 +113,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: MyHomePage(
-          cursorValue: defaultLampAPI.brightness.toDouble(),
+          cursorValue: defaultLampAPI!.brightness.toDouble(),
           infoLamp: infoLamp,
           defaultLamp: retrieveLamp,
           newLamp: lamp,

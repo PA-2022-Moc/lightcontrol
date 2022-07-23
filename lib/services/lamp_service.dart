@@ -8,7 +8,7 @@ class LampService {
   Lamp defaultLampAPI = Lamp();
   String idLamp = "";
 
-  Future<Lamp> getLampState(context) async {
+  Future<Lamp?> getLampState(context) async {
     try {
       var response = await Dio().get(
           'https://lightcontrol-moc.herokuapp.com/api/lights/62a8db955411b47ad7924701');
@@ -25,13 +25,14 @@ class LampService {
 
       return defaultLampAPI;
     } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erreur reseau')));
+      //print(e);
+      //openDialogErrorLamp(context);
 
-      return defaultLampAPI;
+      return null;
     }
   }
+
+ 
 
   void patchLamp(context) async {
     try {
@@ -46,6 +47,8 @@ class LampService {
           .showSnackBar(SnackBar(content: Text('Erreur reseau')));
     }
   }
+
+  
 
   Future<void> updateStart(context, bool start) async {
     try {
