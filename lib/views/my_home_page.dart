@@ -42,6 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
     print(getLamp.color);
   }
 
+  void changeStatePower(retrieveLamp) {
+    bool lampPowerOnOff;
+    setState(() {
+      lampPowerOnOff = retrieveLamp.switchOnOff();
+      lampService.updateStart(context, lampPowerOnOff);
+    });
+  }
+
   Future<double> getTheLampRamdomModAPI() async {
     getLamp = await lampService.getLampState(context);
 
@@ -84,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void setColor(Color color) {
     setState(() {
       selectColor(color);
-      print(" le brightness après changement de coueleur : $widget.cursorValue");
+      print(
+          " le brightness après changement de coueleur : $widget.cursorValue");
     });
   }
 

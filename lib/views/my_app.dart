@@ -131,6 +131,15 @@ class _MyAppState extends State<MyApp> {
                 height: 120,
               ),
             ),
+            actions: [
+                IconButton(
+                  padding: EdgeInsets.only(right : 10.0),
+                    icon: const Icon(Icons.timer,size: 40.0),
+                    onPressed: () {
+                      print("object timer");
+                    }),
+              
+            ],
           ),
         ), // toute la page
       ),

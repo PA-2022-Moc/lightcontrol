@@ -26,8 +26,8 @@ class LampService {
       return defaultLampAPI;
     } catch (e) {
       print(e);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erreur reseau')));
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(SnackBar(content: Text('Erreur reseau')));
 
       return defaultLampAPI;
     }
