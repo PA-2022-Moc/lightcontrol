@@ -100,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void setBrightness(dynamic value) {
     setState(() {
       widget.cursorValue = value;
+      print("ici le bright : ${widget.cursorValue} ");
       int valueInt = widget.cursorValue.toInt();
       changeBrightnessWithSlider(valueInt);
       widget.infoLamp = displayLampInfos();
@@ -222,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 1,
             ),
             BrightnessCursor(
-              valueCursor: widget.cursorValue,
+              valueCursor: widget.defaultLamp.brightness.toDouble(),
               setBrightness: setBrightness,
             ),
             //TEST
