@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import '../components/round-button.dart';
 import '../services/lamp_service.dart';
+import 'my_app.dart';
 
 class CountdownPage extends StatefulWidget {
   const CountdownPage({Key? key}) : super(key: key);
@@ -86,6 +87,25 @@ class _CountdownPageState extends State<CountdownPage>
         backgroundColor: Color(0xfff5fbff),
         body: Column(
           children: [
+            Align(
+              alignment: Alignment.bottomRight,
+              child: IconButton(
+                  padding: EdgeInsets.only(right: 50.0, top: 40, bottom: 40),
+                  icon: const Icon(Icons.close_outlined, size: 60.0),
+                  onPressed: () {
+                    if (isPlaying) {
+                      print("non");
+                      openDialog();
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return MyApp();
+                        },
+                        fullscreenDialog: true,
+                      ));
+                    }
+                  }),
+            ),
             Expanded(
               child: Stack(
                 alignment: Alignment.center,
@@ -133,7 +153,7 @@ class _CountdownPageState extends State<CountdownPage>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 60),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -185,4 +205,19 @@ class _CountdownPageState extends State<CountdownPage>
       ),
     );
   }
+
+  Future openDialog() => showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Attention'),
+          content: Text("Veuillez arrêter le Timer avant de le fermer"),
+          actions: [],
+        ),
+      );
 }
+
+// const AlertDialog(
+//                           title: Text("Attention"),
+//                           content: Text(
+//                               "Veuillez arrêter le Timer avant de la fermer"),
+//                           actions: []);

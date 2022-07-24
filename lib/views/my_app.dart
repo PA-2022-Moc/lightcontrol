@@ -106,13 +106,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Future openDialog() => showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Planifier un Arrêt'),
-            content: CountdownPage(),
-          ),
-        );
     return MaterialApp(
       // toute l'app
       title: 'Flutter light control',
@@ -145,21 +138,27 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             actions: [
-              IconButton(
-                  padding: EdgeInsets.only(right: 10.0),
-                  icon: const Icon(Icons.timer, size: 45.0),
-                  onPressed: () {
-                    print("okay time");
-                    _navigator?.push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return CountdownPage();
-                        },
-              
-                        fullscreenDialog: true,
-                      ),
-                    );
-                  }),
+              AbsorbPointer(
+                absorbing: !retrieveLamp.start,
+                child: IconButton(
+                    padding: EdgeInsets.only(right: 50.0, top: 40, bottom: 40),
+                    icon: const Icon(
+                      Icons.timer_sharp,
+                      size: 60,
+                      color: Colors.black54,
+                    ),
+                    onPressed: () {
+                      print("okay time");
+                      _navigator?.push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CountdownPage();
+                          },
+                          fullscreenDialog: true,
+                        ),
+                      );
+                    }),
+              ),
             ],
           ),
         ), // toute la page
