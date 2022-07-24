@@ -18,7 +18,7 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
         child: SizedBox(
           height: 800,
           child: PageView.builder(
-            itemCount: 2,
+            itemCount: 1,
             controller: PageController(viewportFraction: 0.7),
             onPageChanged: (int index) => setState(() => _index = index),
             itemBuilder: (_, i) {
@@ -41,21 +41,21 @@ class _HorizontalCarousselState extends State<HorizontalCaroussel> {
   }
 
   Widget CardContent(int index, String content) {
-    if (index == 0) {
-      return Text(
-        "${content}",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 17,
-          height: 1.5,
-        ),
-      );
-    } else {
-      return Text(
-        "Card ${index}",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20, height: 1.5),
-      );
-    }
+    //if (index == 0) {
+    return Text(
+      "${content}",
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 17,
+        height: 1.5,
+      ),
+    );
+    // } else {
+    //   return Text(
+    //     "Card ${index}",
+    //     textAlign: TextAlign.center,
+    //     style: TextStyle(fontSize: 20, height: 1.5),
+    //   );
+    // }
   }
 }

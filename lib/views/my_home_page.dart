@@ -154,6 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("widget.defaultLamp.partyMode ${widget.defaultLamp.partyMode}");
     //final myAppState = _MyAppState();
     return AbsorbPointer(
       absorbing: isAbsorbingWithStart(), // les color buttons
